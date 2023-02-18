@@ -54,6 +54,12 @@ dependencies {
     implementation(libs.activity.compose)
     implementation(libs.bundles.bundle.compose.ui)
 
+    // koin
+    implementation(libs.koin.core)
+
+    // timber
+    implementation(libs.timber)
+
     // modules
     implementation(project(":domain"))
 
