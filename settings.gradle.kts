@@ -17,3 +17,4 @@ dependencyResolutionManagement {
 rootProject.name = "Fast"
 include(":app")
 include(":domain")
+include(":core")
