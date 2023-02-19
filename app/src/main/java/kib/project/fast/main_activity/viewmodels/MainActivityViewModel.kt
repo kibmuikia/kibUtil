@@ -25,7 +25,6 @@ class MainActivityViewModel(
     val themeState = _themeState.asStateFlow()
 
     init {
-        Timber.v(":: vm-init")
         viewModelScope.launch {
             generalSettingsManager.themeIndex.collectLatest { _themeState.value = it }
         }

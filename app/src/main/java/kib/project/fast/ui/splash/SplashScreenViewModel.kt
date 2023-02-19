@@ -18,7 +18,6 @@ class SplashScreenViewModel(
     val isUserFirstVisit: State<Boolean> get() = _isUserFirstVisit
 
     init {
-        Timber.v(":: vm-init")
         viewModelScope.launch {
             generalSettingsManager.isFirstVisit.collectLatest {
                 _isUserFirstVisit.value = it
