@@ -51,7 +51,7 @@ fun SplashScreenContent() {
         Text(
             text = "Fast",
             fontSize = 60.sp,
-            color = MaterialTheme.colorScheme.onSecondary,
+            color = MaterialTheme.colorScheme.onTertiary,
         )
         Spacer(modifier = Modifier.height(20.dp))
         Image(

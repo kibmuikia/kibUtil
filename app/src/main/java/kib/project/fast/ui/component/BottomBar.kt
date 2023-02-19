@@ -43,7 +43,13 @@ fun BottomBar(navHostController: NavHostController) {
                     label = {
                         Text(text = screen.label)
                     },
-                    colors = NavigationBarItemDefaults.colors()
+                    colors = NavigationBarItemDefaults.colors(
+                        selectedTextColor = MaterialTheme.colorScheme.secondary,
+                        selectedIconColor = MaterialTheme.colorScheme.onTertiary,
+                        indicatorColor = MaterialTheme.colorScheme.secondary,
+                        unselectedTextColor = MaterialTheme.colorScheme.tertiary,
+                        unselectedIconColor = MaterialTheme.colorScheme.tertiary
+                    )
                 )
             }
         }

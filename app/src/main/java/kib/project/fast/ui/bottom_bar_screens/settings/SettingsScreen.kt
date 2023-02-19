@@ -35,11 +35,14 @@ fun SettingsScreenContent() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.onSecondaryContainer)
+            .background(color = MaterialTheme.colorScheme.secondary)
     ) {
         TopAppBar(
             title = {
-                Text(text = stringResource(id = R.string.title_settings))
+                Text(
+                    text = stringResource(id = R.string.title_settings),
+                    color = MaterialTheme.colorScheme.onTertiary
+                )
             },
             colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
         )
