@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import kib.project.fast.ui.bottom_bar_screens.home.HomeScreen
 import kib.project.fast.ui.bottom_bar_screens.settings.SettingsScreen
+import kib.project.fast.ui.onboarding.OnboardingPager
 import kib.project.fast.ui.splash.SplashScreen
 
 @Composable
@@ -33,6 +34,9 @@ fun NavGraphBuilder.splashNavGraph(navHostController: NavHostController) {
     ) {
         composable(route = "SPLASH") {
             SplashScreen(navHostController = navHostController)
+        }
+        composable(route = Graph.ON_BOARDING) {
+            OnboardingPager(navHostController = navHostController)
         }
     }
 }

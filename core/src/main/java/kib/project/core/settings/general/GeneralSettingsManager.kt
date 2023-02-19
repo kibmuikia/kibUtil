@@ -7,4 +7,11 @@ interface ConnectivityStatus {
     suspend fun setIsOnline(value: Boolean)
 }
 
-interface GeneralSettingsManager: ConnectivityStatus
+interface UserStatus {
+    val isFirstVisit: Flow<Boolean>
+    suspend fun setIsFirstVisit(value: Boolean)
+}
+
+interface GeneralSettingsManager :
+    ConnectivityStatus,
+    UserStatus
