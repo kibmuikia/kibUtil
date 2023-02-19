@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "kib.project.fast"
-        minSdkVersion(23)
+        minSdkVersion(24)
         targetSdkVersion(33)
         versionCode = 1
         versionName = "1.0"
@@ -53,10 +53,29 @@ dependencies {
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
     implementation(libs.bundles.bundle.compose.ui)
+    implementation(libs.navigation.compose)
+
+    // coroutines
+    implementation(libs.coroutines)
+    implementation(libs.coroutines.android)
+    implementation(libs.coroutines.test) // test
+
+    // viewmodel-compose
+    implementation(libs.lifecycle.viewmodel.compose)
 
     // modules
+    implementation(project(":core"))
     implementation(project(":domain"))
 
+    // koin
+    implementation(libs.koin)
+    implementation(libs.koin.compose)
+    // implementation(libs.koin.junit5) // test
+
+    // timber
+    implementation(libs.timber)
+
+    // compose
     implementation(libs.compose.material3)
     implementation(libs.compose.material3.window.sizeclass)
 

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "kib.project.domain"
+    namespace = "kib.project.core"
     compileSdkVersion(33)
 
     defaultConfig {
@@ -25,8 +25,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility(JavaVersion.VERSION_11)
-        targetCompatibility(JavaVersion.VERSION_11)
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = "11"
@@ -36,6 +36,10 @@ android {
 dependencies {
 
     implementation(libs.core.ktx)
+    implementation(libs.koin)
+    implementation(libs.datastore.preferences)
+    implementation(libs.gson)
+    implementation(libs.timber)
 
     // test
     testImplementation(libs.junit)
