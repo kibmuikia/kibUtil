@@ -29,7 +29,7 @@ fun SplashScreen(navHostController: NavHostController) {
 
     LaunchedEffect(key1 = true) {
         val route = if (viewModel.isUserFirstVisit.value) Graph.ON_BOARDING else Graph.MAIN
-        delay(2000L)
+        delay(1500L)
         navHostController.navigate(route) {
             popUpTo(Graph.SPLASH) {
                 inclusive = true

@@ -9,6 +9,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -25,6 +26,8 @@ fun SettingsScreen(navHostController: NavHostController) {
     val viewModel: SettingsScreenViewModel = getViewModel()
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
+
+    SettingsScreenContent()
 }
 
 @Composable
@@ -38,7 +41,7 @@ fun SettingsScreenContent() {
             title = {
                 Text(text = stringResource(id = R.string.title_settings))
             },
-            modifier = Modifier.background(color = MaterialTheme.colorScheme.primary)
+            colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
         )
     }
 }

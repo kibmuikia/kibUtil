@@ -18,7 +18,7 @@ class SplashScreenViewModel(
     val isUserFirstVisit: State<Boolean> get() = _isUserFirstVisit
 
     init {
-        Timber.i(":: vm-init")
+        Timber.v(":: vm-init")
         viewModelScope.launch {
             generalSettingsManager.isFirstVisit.collectLatest {
                 _isUserFirstVisit.value = it
@@ -33,7 +33,7 @@ class SplashScreenViewModel(
     }
 
     override fun onCleared() {
-        Timber.i(":: vm-cleared")
+        Timber.v(":: vm-cleared")
         super.onCleared()
     }
 

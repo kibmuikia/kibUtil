@@ -12,6 +12,11 @@ interface UserStatus {
     suspend fun setIsFirstVisit(value: Boolean)
 }
 
+interface GeneralSettingsManagerTools {
+    suspend fun resetData()
+}
+
 interface GeneralSettingsManager :
     ConnectivityStatus,
-    UserStatus
+    UserStatus,
+    GeneralSettingsManagerTools

@@ -16,6 +16,19 @@ val Context.dataStore by preferencesDataStore("general_settings_ref")
 class GeneralSettingsManagerImpl(context: Context) : GeneralSettingsManager {
     private val dataStore = context.dataStore
 
+    /**
+     * Remove all defined preferences from this MutablePreferences
+     * */
+    override suspend fun resetData() {
+        val keysToReset = listOf(
+            IS_USER_FIRST_VISIT,
+            IS_NETWORK_CONNECTED
+        )
+        dataStore.edit {
+            keysToReset.forEach { key -> it.remove(key) }
+        }
+    }
+
     override val isOnline: Flow<Boolean>
         get() = getBooleanPreferenceItem(IS_NETWORK_CONNECTED)
 
@@ -26,7 +39,18 @@ class GeneralSettingsManagerImpl(context: Context) : GeneralSettingsManager {
     }
 
     override val isFirstVisit: Flow<Boolean>
-        get() = getBooleanPreferenceItemDefaultTrue(IS_USER_FIRST_VISIT)
+        get() = dataStore.data
+            .catch {
+                if (it is IOException) {
+                    it.printStackTrace()
+                    emit(emptyPreferences())
+                } else {
+                    throw it
+                }
+            }
+            .map { preference ->
+                preference[IS_USER_FIRST_VISIT] ?: true
+            }
 
     override suspend fun setIsFirstVisit(value: Boolean) {
         dataStore.edit { preferences ->
@@ -45,19 +69,6 @@ class GeneralSettingsManagerImpl(context: Context) : GeneralSettingsManager {
         }
         .map { preference ->
             preference[key] ?: false
-        }
-
-    private fun getBooleanPreferenceItemDefaultTrue(key: Preferences.Key<Boolean>) = dataStore.data
-        .catch {
-            if (it is IOException) {
-                it.printStackTrace()
-                emit(emptyPreferences())
-            } else {
-                throw it
-            }
-        }
-        .map { preference ->
-            preference[key] ?: true
         }
 
     companion object {

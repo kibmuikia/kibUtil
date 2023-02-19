@@ -7,15 +7,21 @@ sealed class BottomBarScreen(
     val label: String,
     val icon: Int,
 ) {
-    object Home: BottomBarScreen(
+    object Home : BottomBarScreen(
         route = "home",
         label = "Home",
         icon = R.drawable.ic_home
     )
 
-    object Settings: BottomBarScreen(
+    object Settings : BottomBarScreen(
         route = "settings",
         label = "Settings",
-        icon = R.drawable.ic_baseline_settings_24
+        icon = R.drawable.ic_settings
+    )
+
+    object About : BottomBarScreen(
+        route = "about",
+        label = "About",
+        icon = R.drawable.ic_info
     )
 }

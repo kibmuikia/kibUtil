@@ -24,6 +24,9 @@ fun MainNavGraph(navHostController: NavHostController) {
         composable(route = BottomBarScreen.Settings.route) {
             SettingsScreen(navHostController = navHostController)
         }
+        composable(route = BottomBarScreen.About.route) {
+            HomeScreen(navHostController = navHostController)
+        }
     }
 }
 
