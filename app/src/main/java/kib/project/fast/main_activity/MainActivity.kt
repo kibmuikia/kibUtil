@@ -3,11 +3,18 @@ package kib.project.fast.main_activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import kib.project.fast.main_activity.screens.MainActivityScreen
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import kib.project.fast.main_activity.viewmodels.MainActivityViewModel
+import kib.project.fast.navigation.RootNavigation
 import kib.project.fast.ui.theme.FastTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@ExperimentalMaterial3Api
 class MainActivity : ComponentActivity() {
 
     private val mainActivityViewModel: MainActivityViewModel by viewModel()
@@ -16,9 +23,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FastTheme {
-                MainActivityScreen(
-                    viewModel = mainActivityViewModel
-                )
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    RootNavigation(navHostController = rememberNavController())
+                }
             }
         }
     }

@@ -25,7 +25,7 @@ class MyApplication : Application() {
     private fun initKoin() {
         try {
             startKoin {
-                androidLogger(Level.ERROR)
+                androidLogger(Level.INFO)
                 androidContext(applicationContext)
                 val moduleList = mutableListOf<Module>().apply {
                     addAll(coreModules)
