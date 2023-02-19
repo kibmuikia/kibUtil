@@ -5,4 +5,7 @@
 
     <!-- End-Navigation -->
 
+    <!--  Placeholders  -->
+    <string name="text_person_doe">Person Doe</string>
+
 </resources>

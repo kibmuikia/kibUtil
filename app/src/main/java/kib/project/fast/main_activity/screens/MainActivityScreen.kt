@@ -17,13 +17,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kib.project.fast.R
+import kib.project.fast.main_activity.viewmodels.MainActivityViewModel
 
 @Composable
-fun MainActivityScreen() {
+fun MainActivityScreen(
+    viewModel: MainActivityViewModel
+) {
     // A surface container using the 'background' color from the theme
     Surface(
         modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
@@ -32,7 +37,7 @@ fun MainActivityScreen() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Greeting("Person Doe")
+            Greeting(stringResource(id = R.string.text_person_doe))
         }
     }
 }
@@ -69,5 +74,5 @@ fun Greeting(name: String) {
 @Preview()
 @Composable
 fun DefaultPreview() {
-    Greeting("Person Doe")
+    Greeting(stringResource(id = R.string.text_person_doe))
 }
