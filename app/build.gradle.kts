@@ -53,6 +53,15 @@ dependencies {
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
     implementation(libs.bundles.bundle.compose.ui)
+    implementation(libs.navigation.compose)
+
+    // coroutines
+    implementation(libs.coroutines)
+    implementation(libs.coroutines.android)
+    implementation(libs.coroutines.test) // test
+
+    // viewmodel-compose
+    implementation(libs.lifecycle.viewmodel.compose)
 
     // modules
     implementation(project(":core"))
