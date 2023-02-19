@@ -16,7 +16,13 @@ interface GeneralSettingsManagerTools {
     suspend fun resetData()
 }
 
+interface DeviceSettings {
+    val themeIndex: Flow<Int>
+    suspend fun setThemeIndex(value: Int)
+}
+
 interface GeneralSettingsManager :
     ConnectivityStatus,
     UserStatus,
-    GeneralSettingsManagerTools
+    GeneralSettingsManagerTools,
+    DeviceSettings

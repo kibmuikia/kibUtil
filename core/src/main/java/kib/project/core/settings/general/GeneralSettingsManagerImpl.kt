@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -26,6 +27,15 @@ class GeneralSettingsManagerImpl(context: Context) : GeneralSettingsManager {
         )
         dataStore.edit {
             keysToReset.forEach { key -> it.remove(key) }
+        }
+    }
+
+    override val themeIndex: Flow<Int>
+        get() = getIntPreferenceItem(THEME_INDEX)
+
+    override suspend fun setThemeIndex(value: Int) {
+        dataStore.edit { preferences ->
+            preferences[THEME_INDEX] = value
         }
     }
 
@@ -71,6 +81,19 @@ class GeneralSettingsManagerImpl(context: Context) : GeneralSettingsManager {
             preference[key] ?: false
         }
 
+    private fun getIntPreferenceItem(key: Preferences.Key<Int>) = dataStore.data
+        .catch {
+            if (it is IOException) {
+                it.printStackTrace()
+                emit(emptyPreferences())
+            } else {
+                throw it
+            }
+        }
+        .map { preference ->
+            preference[key] ?: 0
+        }
+
     companion object {
         /**
          * Holds the current network state
@@ -81,5 +104,11 @@ class GeneralSettingsManagerImpl(context: Context) : GeneralSettingsManager {
          * Holds status of user visit to the app
          * */
         val IS_USER_FIRST_VISIT = booleanPreferencesKey("is_user_first_visit")
+
+        /**
+         * Holds the theme-index. Allows to manually select the theme,
+         * independent of the system wide theme value.
+         * */
+        val THEME_INDEX = intPreferencesKey("theme_index")
     }
 }
