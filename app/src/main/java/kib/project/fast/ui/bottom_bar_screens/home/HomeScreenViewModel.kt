@@ -6,7 +6,12 @@ import timber.log.Timber
 class HomeScreenViewModel : ViewModel() {
 
     init {
-        Timber.i(":: triggered")
+        Timber.i(":: vm-init")
+    }
+
+    override fun onCleared() {
+        Timber.i(":: vm-cleared")
+        super.onCleared()
     }
 
 }

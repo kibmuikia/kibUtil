@@ -1,4 +1,4 @@
-package kib.project.fast.ui.bottom_bar_screens.settings
+package kib.project.fast.ui.splash
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State

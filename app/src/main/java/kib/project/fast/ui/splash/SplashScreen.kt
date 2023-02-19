@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import kib.project.fast.R
 import kib.project.fast.navigation.Graph
-import kib.project.fast.ui.bottom_bar_screens.settings.SplashScreenViewModel
 import kotlinx.coroutines.delay
 import org.koin.androidx.compose.getViewModel
 

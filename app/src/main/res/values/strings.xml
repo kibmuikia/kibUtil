@@ -5,11 +5,18 @@
 
     <!-- End-Navigation -->
 
+    <!--  Titles  -->
+    <string name="title_home">Home</string>
+    <string name="title_settings">Settings</string>
+    <!--  Titles  -->
+
     <!--  Placeholders  -->
     <string name="text_person_doe">Person Doe</string>
     <string name="generic_sentence">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</string>
     <!--  Placeholders  -->
 
+    <!--  Button Text  -->
     <string name="text_get_started">Get Started</string>
+    <!--  Button Text  -->
 
 </resources>
