@@ -18,3 +18,4 @@ rootProject.name = "Fast"
 include(":app")
 include(":domain")
 include(":core")
+include(":data")
