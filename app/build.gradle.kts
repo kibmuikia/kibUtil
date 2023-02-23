@@ -80,6 +80,9 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.compose.material3.window.sizeclass)
 
+    // lottie compose
+    implementation(libs.lottie.compose)
+
     // test
     androidTestImplementation(libs.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

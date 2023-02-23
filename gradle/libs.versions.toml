@@ -21,6 +21,7 @@ lifecycle-viewmodel-compose = "2.6.0-beta01"
 room = "2.5.0"
 androidx-appcompat = "1.6.1"
 detekt = "1.21.0"
+lottie-compose = "6.0.0"
 
 [libraries]
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
@@ -58,6 +59,7 @@ room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 gradle-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie-compose" }
 
 [bundles]
 bundle-compose-ui = ["compose-ui", "compose-ui-tooling-preview"]
