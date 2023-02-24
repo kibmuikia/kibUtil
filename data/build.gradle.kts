@@ -38,14 +38,20 @@ dependencies {
     implementation(libs.androidx.appcompat)
 
     // room
-    // implementation(libs.room.ktx)
     implementation(libs.room.runtime)
-    implementation(libs.room.compiler)
+    annotationProcessor(libs.room.compiler)
     implementation(libs.room.paging)
+
+    // coroutines
+    implementation(libs.coroutines)
+
+    // timber
+    implementation(libs.timber)
 
     // test
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
     testImplementation(libs.room.testing)
+    implementation(libs.coroutines.test)
 }
