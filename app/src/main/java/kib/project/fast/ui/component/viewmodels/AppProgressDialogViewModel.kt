@@ -1,17 +1,22 @@
 package kib.project.fast.ui.component.viewmodels
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import kib.project.fast.ui.component.models.AppProgressDialogUiState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import timber.log.Timber
 
 class AppProgressDialogViewModel : ViewModel() {
 
-    private val _uiState: MutableState<AppProgressDialogUiState> =
-        mutableStateOf(AppProgressDialogUiState())
-    val uiState: State<AppProgressDialogUiState> get() = _uiState
+    private val _uiState = MutableStateFlow(AppProgressDialogUiState())
+    val uiState = _uiState.asStateFlow()
+
+    fun setUiStateShow(value: Boolean) {
+        _uiState.update {
+            it.copy(show = value)
+        }
+    }
 
     init {
         Timber.v(":: vm-init: triggered!")

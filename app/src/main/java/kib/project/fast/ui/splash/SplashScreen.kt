@@ -64,7 +64,7 @@ fun SplashScreenContent() {
             composition = composition,
             progress = { progress },
             modifier = Modifier.fillMaxSize(0.8F),
-            contentScale = ContentScale.Inside
+            contentScale = ContentScale.Fit
         )
     }
 }
