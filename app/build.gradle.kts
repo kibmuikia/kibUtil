@@ -63,7 +63,7 @@ dependencies {
     implementation(libs.coroutines.test) // test
 
     // viewmodel-compose
-    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.bundles.bundle.compose.lifecycle)
 
     // modules
     implementation(project(":core"))

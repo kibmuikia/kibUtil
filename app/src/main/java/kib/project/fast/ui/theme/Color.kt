@@ -23,3 +23,6 @@ val ChocChip30Dark = Color(0xFF49302F)
 val ChocChip20Dark = Color(0xFFC47F4C)
 val ChocChip10Dark = Color(0xFFE9A975)
 val ChocChipText10Dark = Color(0xFFEfC29E)
+
+val cardCollapsedBackgroundColor = Color(0xFFFEFFFD)
+val cardExpandedBackgroundColor = Color(0xFFFFDA6D)
