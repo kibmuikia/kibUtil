@@ -6,13 +6,15 @@ plugins {
 android {
     namespace = "kib.project.fast"
     compileSdkVersion(33)
+    compileSdkPreview = "UpsideDownCake"
 
     defaultConfig {
         applicationId = "kib.project.fast"
-        minSdkVersion(24)
-        targetSdkVersion(33)
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = 24
+        targetSdk = 33
+        targetSdkPreview = "UpsideDownCake"
+        versionCode = 1000
+        versionName = "1.0.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -82,6 +84,9 @@ dependencies {
 
     // lottie compose
     implementation(libs.lottie.compose)
+
+    // accompanist-permissions
+    implementation(libs.accompanist.permissions)
 
     // test
     androidTestImplementation(libs.test.ext.junit)
