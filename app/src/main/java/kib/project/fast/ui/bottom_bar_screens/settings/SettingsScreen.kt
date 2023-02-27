@@ -43,8 +43,6 @@ fun SettingsScreen(navHostController: NavHostController) {
     val themeState = viewModel.themeState.collectAsState().value
 
     Column {
-        ExpandableList(viewModel = expandableListViewModel)
-        Spacer(modifier = Modifier.height(12.dp))
         SettingsScreenContent(
             themeSettingList = themeSettingList,
             themeState = themeState,
@@ -52,6 +50,9 @@ fun SettingsScreen(navHostController: NavHostController) {
                 viewModel.setThemeState(it)
             }
         )
+        Spacer(modifier = Modifier.height(6.dp))
+        ExpandableList(viewModel = expandableListViewModel)
+        Spacer(modifier = Modifier.height(6.dp))
     }
 }
 
