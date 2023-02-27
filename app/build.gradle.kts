@@ -6,13 +6,13 @@ plugins {
 android {
     namespace = "kib.project.fast"
     compileSdk = 33
-    compileSdkPreview = "UpsideDownCake"
+    //compileSdkPreview = "UpsideDownCake"
 
     defaultConfig {
         applicationId = "kib.project.fast"
         minSdk = 24
         targetSdk = 33
-        targetSdkPreview = "UpsideDownCake"
+        //targetSdkPreview = "UpsideDownCake"
         versionCode = 1000
         versionName = "1.0.0.0"
 
