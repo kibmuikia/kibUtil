@@ -23,6 +23,7 @@ androidx-appcompat = "1.6.1"
 detekt = "1.21.0"
 lottie-compose = "6.0.0"
 accompanist-permissions = "0.29.1-alpha"
+retrofit = "2.9.0"
 
 [libraries]
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
@@ -62,6 +63,8 @@ detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", 
 gradle-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie-compose" }
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist-permissions" }
+retrofit = { module ="com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 
 [bundles]
 bundle-compose-ui = ["compose-ui", "compose-ui-tooling-preview"]
