@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "kib.project.fast"
-    compileSdkVersion(33)
+    compileSdk = 33
     compileSdkPreview = "UpsideDownCake"
 
     defaultConfig {
