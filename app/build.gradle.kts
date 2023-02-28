@@ -5,14 +5,14 @@ plugins {
 
 android {
     namespace = "kib.project.fast"
-    compileSdkVersion(33)
-    compileSdkPreview = "UpsideDownCake"
+    compileSdk = 33
+    //compileSdkPreview = "UpsideDownCake"
 
     defaultConfig {
         applicationId = "kib.project.fast"
         minSdk = 24
         targetSdk = 33
-        targetSdkPreview = "UpsideDownCake"
+        //targetSdkPreview = "UpsideDownCake"
         versionCode = 1000
         versionName = "1.0.0.0"
 
@@ -63,7 +63,7 @@ dependencies {
     implementation(libs.coroutines.test) // test
 
     // viewmodel-compose
-    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.bundles.bundle.compose.lifecycle)
 
     // modules
     implementation(project(":core"))
