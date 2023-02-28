@@ -5,9 +5,7 @@ package kib.project.fast.ui.bottom_bar_screens.settings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -27,16 +25,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import kib.project.fast.R
-import kib.project.fast.ui.component.ExpandableList
 import kib.project.fast.ui.component.SettingThemeItem
-import kib.project.fast.ui.component.viewmodels.ExpandableListViewModel
 import org.koin.androidx.compose.getViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(navHostController: NavHostController) {
     val viewModel: SettingsScreenViewModel = getViewModel()
-    val expandableListViewModel: ExpandableListViewModel = getViewModel()
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
     val themeSettingList = stringArrayResource(id = R.array.theme_settings).toList()
@@ -50,9 +45,6 @@ fun SettingsScreen(navHostController: NavHostController) {
                 viewModel.setThemeState(it)
             }
         )
-        Spacer(modifier = Modifier.height(6.dp))
-        ExpandableList(viewModel = expandableListViewModel)
-        Spacer(modifier = Modifier.height(6.dp))
     }
 }
 
