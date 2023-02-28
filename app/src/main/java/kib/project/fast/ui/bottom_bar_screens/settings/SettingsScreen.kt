@@ -37,15 +37,13 @@ fun SettingsScreen(navHostController: NavHostController) {
     val themeSettingList = stringArrayResource(id = R.array.theme_settings).toList()
     val themeState = viewModel.themeState.collectAsState().value
 
-    Column {
-        SettingsScreenContent(
-            themeSettingList = themeSettingList,
-            themeState = themeState,
-            onSettingThemeItemClicked = {
-                viewModel.setThemeState(it)
-            }
-        )
-    }
+    SettingsScreenContent(
+        themeSettingList = themeSettingList,
+        themeState = themeState,
+        onSettingThemeItemClicked = {
+            viewModel.setThemeState(it)
+        }
+    )
 }
 
 @Composable
