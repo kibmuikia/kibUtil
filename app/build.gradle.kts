@@ -5,14 +5,16 @@ plugins {
 
 android {
     namespace = "kib.project.fast"
-    compileSdkVersion(33)
+    compileSdk = 33
+    //compileSdkPreview = "UpsideDownCake"
 
     defaultConfig {
         applicationId = "kib.project.fast"
-        minSdkVersion(24)
-        targetSdkVersion(33)
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = 24
+        targetSdk = 33
+        //targetSdkPreview = "UpsideDownCake"
+        versionCode = 1000
+        versionName = "1.0.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -61,10 +63,11 @@ dependencies {
     implementation(libs.coroutines.test) // test
 
     // viewmodel-compose
-    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.bundles.bundle.compose.lifecycle)
 
     // modules
     implementation(project(":core"))
+    implementation(project(":data"))
     implementation(project(":domain"))
 
     // koin
@@ -78,6 +81,12 @@ dependencies {
     // compose
     implementation(libs.compose.material3)
     implementation(libs.compose.material3.window.sizeclass)
+
+    // lottie compose
+    implementation(libs.lottie.compose)
+
+    // accompanist-permissions
+    implementation(libs.accompanist.permissions)
 
     // test
     androidTestImplementation(libs.test.ext.junit)
