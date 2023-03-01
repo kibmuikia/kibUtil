@@ -5,7 +5,9 @@ package kib.project.fast.ui.bottom_bar_screens.settings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -26,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import kib.project.fast.R
 import kib.project.fast.ui.component.SettingThemeItem
+import kib.project.fast.ui.component.SinglePersmission
 import org.koin.androidx.compose.getViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,6 +69,10 @@ fun SettingsScreenContent(
             },
             colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
         )
+        SinglePersmission(
+            permission = android.Manifest.permission.READ_SMS
+        )
+        Spacer(modifier = Modifier.height(8.dp))
         LazyColumn(
             contentPadding = PaddingValues(12.dp)
         ) {

@@ -24,6 +24,7 @@
         <item>Light</item>
         <item>Dark</item>
     </string-array>
+    <string name="request_permission">Request Permission</string>
     <!--  Button Text  -->
 
 </resources>
