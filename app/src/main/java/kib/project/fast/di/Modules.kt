@@ -1,17 +1,20 @@
 package kib.project.fast.di
 
+import kib.project.data.api.interfaces.SampleApi
 import kib.project.fast.main_activity.viewmodels.MainActivityViewModel
 import kib.project.fast.ui.bottom_bar_screens.home.HomeScreenViewModel
 import kib.project.fast.ui.bottom_bar_screens.settings.SettingsScreenViewModel
 import kib.project.fast.ui.component.viewmodels.AppProgressDialogViewModel
 import kib.project.fast.ui.component.viewmodels.ExpandableListViewModel
 import kib.project.fast.ui.splash.SplashScreenViewModel
+import kib.project.fast.utils.BASEURL
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import retrofit2.Retrofit
+import retrofit2.create
 import java.util.concurrent.TimeUnit
 
 private val viewModelModule: Module = module {
@@ -33,13 +36,18 @@ private val networkingModule: Module = module {
     }
     single {
         Retrofit.Builder()
-            .baseUrl("Base Url")
+            .baseUrl(BASEURL)
             .client(get())
             .build()
     }
 }
 
+private val apiModule: Module = module {
+    single<SampleApi> { get<Retrofit>().create() }
+}
+
 val appModules: List<Module> = listOf(
     viewModelModule,
     networkingModule,
+    apiModule
 )

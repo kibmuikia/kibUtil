@@ -51,6 +51,12 @@ dependencies {
     // koin
     implementation(libs.koin)
 
+    // retrofit
+    implementation(libs.retrofit)
+
+    // gson
+    implementation(libs.gson)
+
     // test
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.ext.junit)
