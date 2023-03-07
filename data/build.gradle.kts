@@ -48,6 +48,9 @@ dependencies {
     // timber
     implementation(libs.timber)
 
+    // koin
+    implementation(libs.koin)
+
     // test
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.ext.junit)
