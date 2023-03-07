@@ -3,6 +3,7 @@ package kib.project.fast.app
 import android.app.Application
 import androidx.annotation.Nullable
 import kib.project.core.di.coreModules
+import kib.project.data.di.dataModule
 import kib.project.fast.di.appModules
 import org.jetbrains.annotations.NotNull
 import org.koin.android.ext.koin.androidContext
@@ -30,6 +31,7 @@ class MyApplication : Application() {
                 val moduleList = mutableListOf<Module>().apply {
                     addAll(coreModules)
                     addAll(appModules)
+                    addAll(dataModule)
                 }
                 modules(moduleList)
             }
