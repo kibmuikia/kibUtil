@@ -1,6 +1,9 @@
 package kib.project.data.database.repositories
 
 import User
+import kib.project.data.api.interfaces.SampleApi
+import kib.project.data.api.models.requests.SampleLoginUserRequest
+import kib.project.data.api.models.responses.SampleUserResponse
 import kib.project.data.database.dao.UserDao
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -20,10 +23,13 @@ interface UserRepository {
 
     fun getUserById(userId: String): Flow<User?>
 
+    suspend fun sampleLoginUser(sampleLoginUserRequest: SampleLoginUserRequest): SampleUserResponse
+
 }
 
 class UserRepositoryImpl(
     private val userDao: UserDao,
+    private val sampleApi: SampleApi,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ): UserRepository { // KoinComponent
 
@@ -48,5 +54,7 @@ class UserRepositoryImpl(
     )
 
     override fun getUserById(userId: String): Flow<User?> = userDao.fetchUserByUserId(userId = userId)
+    override suspend fun sampleLoginUser(sampleLoginUserRequest: SampleLoginUserRequest): SampleUserResponse =
+        sampleApi.sampleLoginUser(sampleLoginUserRequest = sampleLoginUserRequest)
 
 }
