@@ -2,6 +2,7 @@
 
 package kib.project.fast.ui.bottom_bar_screens.home
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,11 +28,11 @@ fun HomeScreen(navHostController: NavHostController) {
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
 
-    HomeScreenContent()
+    HomeScreenContent(context = context)
 }
 
 @Composable
-fun HomeScreenContent() {
+fun HomeScreenContent(context: Context) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -44,7 +45,7 @@ fun HomeScreenContent() {
                     color = MaterialTheme.colorScheme.onTertiary
                 )
             },
-            colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary)
+            colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
         )
     }
 }
@@ -52,5 +53,5 @@ fun HomeScreenContent() {
 @Preview
 @Composable
 fun HomeScreenContentPreview() {
-    HomeScreenContent()
+    HomeScreenContent(context = LocalContext.current)
 }

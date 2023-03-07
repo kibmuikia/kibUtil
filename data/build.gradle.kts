@@ -23,6 +23,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+        create("staging") {
+            initWith(getByName("debug"))
+        }
     }
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_11)
@@ -50,6 +53,12 @@ dependencies {
 
     // koin
     implementation(libs.koin)
+
+    // retrofit
+    implementation(libs.retrofit)
+
+    // gson
+    implementation(libs.gson)
 
     // test
     testImplementation(libs.junit)

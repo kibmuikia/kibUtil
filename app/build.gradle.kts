@@ -27,6 +27,15 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
+        getByName("debug") {
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = " - debug"
+        }
+        create("staging") {
+            initWith(getByName("debug"))
+            applicationIdSuffix = ".staging"
+            versionNameSuffix = " - staging"
+        }
     }
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_11)
@@ -87,6 +96,9 @@ dependencies {
 
     // accompanist-permissions
     implementation(libs.accompanist.permissions)
+
+    // retrofit
+    implementation(libs.retrofit)
 
     // test
     androidTestImplementation(libs.test.ext.junit)
