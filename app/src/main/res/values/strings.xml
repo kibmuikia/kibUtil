@@ -26,4 +26,8 @@
     </string-array>
     <!--  Button Text  -->
 
+    <!--  Description Text  -->
+    <string name="ic_info_content_description">Information Icon</string>
+    <!--  Description Text  -->
+
 </resources>
