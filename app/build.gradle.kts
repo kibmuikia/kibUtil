@@ -88,6 +88,9 @@ dependencies {
     // accompanist-permissions
     implementation(libs.accompanist.permissions)
 
+    // retrofit
+    implementation(libs.retrofit)
+
     // test
     androidTestImplementation(libs.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
