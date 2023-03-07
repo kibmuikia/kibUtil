@@ -43,6 +43,9 @@ dependencies {
     implementation(libs.datastore.preferences)
     implementation(libs.gson)
     implementation(libs.timber)
+    // chucker
+    debugImplementation(libs.chucker.library.debug)
+    releaseImplementation(libs.chucker.library.release)
 
     // test
     testImplementation(libs.junit)
