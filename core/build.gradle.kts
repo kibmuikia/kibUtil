@@ -23,6 +23,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+        create("staging") {
+            initWith(getByName("debug"))
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -40,6 +43,9 @@ dependencies {
     implementation(libs.datastore.preferences)
     implementation(libs.gson)
     implementation(libs.timber)
+    // chucker
+    debugImplementation(libs.chucker.library.debug)
+    releaseImplementation(libs.chucker.library.release)
 
     // test
     testImplementation(libs.junit)

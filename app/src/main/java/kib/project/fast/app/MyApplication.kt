@@ -28,6 +28,7 @@ class MyApplication : Application() {
             startKoin {
                 androidLogger(Level.INFO)
                 androidContext(applicationContext)
+                // allowOverride(false)
                 val moduleList = mutableListOf<Module>().apply {
                     addAll(coreModules)
                     addAll(appModules)

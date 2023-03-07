@@ -23,6 +23,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+        create("staging") {
+            initWith(getByName("debug"))
+        }
     }
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_11)
