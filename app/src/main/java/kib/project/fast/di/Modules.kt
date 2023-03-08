@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit
 private val viewModelModule: Module = module {
     viewModel { MainActivityViewModel(get()) }
     viewModel { SplashScreenViewModel(get()) }
-    viewModel { HomeScreenViewModel() }
+    viewModel { HomeScreenViewModel(get()) }
     viewModel { SettingsScreenViewModel(get()) }
     viewModel { AppProgressDialogViewModel() }
     viewModel { ExpandableListViewModel() }

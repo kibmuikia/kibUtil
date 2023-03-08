@@ -2,11 +2,12 @@ package kib.project.data.database
 
 import User
 import android.content.Context
+import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import kib.project.data.database.dao.UserDao
 
-@androidx.room.Database(
+@Database(
     entities = [
         User::class,
     ],

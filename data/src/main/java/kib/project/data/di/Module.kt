@@ -20,7 +20,7 @@ private val daoModule: Module = module {
 }
 
 private val repositoryModule: Module = module {
-    single<UserRepository> { UserRepositoryImpl(get(), get()) }
+    single<UserRepository> { UserRepositoryImpl(get(), get(), get()) }
 }
 
 private val useCaseModule: Module = module {
