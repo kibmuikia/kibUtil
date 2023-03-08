@@ -41,6 +41,8 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.androidx.appcompat)
 
+    implementation(project(":core"))
+
     // room
     ksp(libs.room.compiler)
     implementation(libs.room.ktx)
