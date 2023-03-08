@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp") version "1.8.0-1.0.9"
 }
 
 android {
@@ -41,8 +42,9 @@ dependencies {
     implementation(libs.androidx.appcompat)
 
     // room
+    ksp(libs.room.compiler)
+    implementation(libs.room.ktx)
     implementation(libs.room.runtime)
-    annotationProcessor(libs.room.compiler)
     implementation(libs.room.paging)
 
     // coroutines
