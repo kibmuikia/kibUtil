@@ -24,25 +24,25 @@ android {
         }
     }
 
-    val API_KEY: String? =
-        gradleLocalProperties(rootDir).getProperty("API_KEY")
+    val apiKey: String =
+        gradleLocalProperties(rootDir).getProperty("apiKey")
 
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            buildConfigField("String", "API_KEY", API_KEY.toString())
+            buildConfigField("String", "API_KEY", apiKey)
         }
         getByName("debug") {
             applicationIdSuffix = ".debug"
             versionNameSuffix = " - debug"
-            buildConfigField("String", "API_KEY", API_KEY.toString())
+            buildConfigField("String", "API_KEY", apiKey)
         }
         create("staging") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".staging"
             versionNameSuffix = " - staging"
-            buildConfigField("String", "API_KEY", API_KEY.toString())
+            buildConfigField("String", "API_KEY", apiKey)
         }
     }
     compileOptions {

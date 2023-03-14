@@ -17,7 +17,6 @@ interface SampleApi {
 
     @GET("genre/movie/list")
     suspend fun getMovieGenresList(
-        @Query("api_key") apiKey: String = "",
         @Query("language") language: String = "en-US",
     ): GenreResponse
 

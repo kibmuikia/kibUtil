@@ -9,6 +9,7 @@ import kib.project.fast.ui.bottom_bar_screens.settings.SettingsScreenViewModel
 import kib.project.fast.ui.component.viewmodels.AppProgressDialogViewModel
 import kib.project.fast.ui.component.viewmodels.ExpandableListViewModel
 import kib.project.fast.ui.splash.SplashScreenViewModel
+import kib.project.fast.utils.AuthInterceptor
 import kib.project.fast.utils.BASEURL
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
@@ -34,6 +35,7 @@ private val networkingModule: Module = module {
     single {
         OkHttpClient.Builder()
             .addInterceptor(provideChuckerInterceptor(androidContext()))
+            .addInterceptor(AuthInterceptor())
             .connectTimeout(1, TimeUnit.MINUTES)
             .readTimeout(1, TimeUnit.MINUTES)
             .protocols(listOf(Protocol.HTTP_2, Protocol.HTTP_1_1))
