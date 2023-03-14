@@ -42,6 +42,7 @@ dependencies {
 
     // room
     implementation(libs.room.runtime)
+    implementation(project(":core"))
     annotationProcessor(libs.room.compiler)
     implementation(libs.room.paging)
 
