@@ -1,5 +1,6 @@
 package kib.project.fast.di
 
+import com.google.gson.GsonBuilder
 import kib.project.core.utils.provideChuckerInterceptor
 import kib.project.data.api.interfaces.SampleApi
 import kib.project.fast.main_activity.viewmodels.MainActivityViewModel
@@ -16,6 +17,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import java.util.concurrent.TimeUnit
 
@@ -40,10 +42,19 @@ private val networkingModule: Module = module {
     single {
         Retrofit.Builder()
             .baseUrl(BASEURL)
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(get())
             .build()
     }
 }
+
+private val gson = GsonBuilder()
+//    .registerTypeAdapter(
+//        DateTime::class.java, // org.joda.time.DateTime
+//        GsonDateTimeConverter()
+//    )
+    .serializeNulls()
+    .create()
 
 private val apiModule: Module = module {
     single<SampleApi> { get<Retrofit>().create() }

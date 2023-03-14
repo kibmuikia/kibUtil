@@ -99,6 +99,10 @@ dependencies {
 
     // retrofit
     implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+
+    // gson
+    implementation(libs.gson)
 
     // test
     androidTestImplementation(libs.test.ext.junit)
