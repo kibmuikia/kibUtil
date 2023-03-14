@@ -32,7 +32,8 @@ fun HomeScreen(navHostController: NavHostController) {
 
     LaunchedEffect(key1 = "sampleLogin") {
         coroutineScope.launch {
-            viewModel.sampleLoginUser()
+            // viewModel.sampleLoginUser()
+            viewModel.sampleFetchMovieGenresListFromApi()
         }
     }
 

@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -22,19 +24,25 @@ android {
         }
     }
 
+    val API_KEY: String? =
+        gradleLocalProperties(rootDir).getProperty("API_KEY")
+
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            buildConfigField("String", "API_KEY", API_KEY.toString())
         }
         getByName("debug") {
             applicationIdSuffix = ".debug"
             versionNameSuffix = " - debug"
+            buildConfigField("String", "API_KEY", API_KEY.toString())
         }
         create("staging") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".staging"
             versionNameSuffix = " - staging"
+            buildConfigField("String", "API_KEY", API_KEY.toString())
         }
     }
     compileOptions {
