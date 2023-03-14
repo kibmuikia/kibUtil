@@ -11,3 +11,12 @@ data class UserResponse(
     @SerializedName("last_name") val lastName: String,
     @SerializedName("system_id") val systemId: String,
 )
+
+data class GenreResponse(
+    @SerializedName("genres") val genres: List<Genre>,
+)
+
+data class Genre(
+    @SerializedName("id") val id: Int,
+    @SerializedName("name") val name: String
+)

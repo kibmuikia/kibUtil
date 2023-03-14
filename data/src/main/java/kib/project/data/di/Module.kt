@@ -2,6 +2,8 @@ package kib.project.data.di
 
 import kib.project.data.api.interfaces.SampleApi
 import kib.project.data.database.AppDatabase
+import kib.project.data.database.repositories.SampleRepository
+import kib.project.data.database.repositories.SampleRepositoryImpl
 import kib.project.data.database.repositories.UserRepository
 import kib.project.data.database.repositories.UserRepositoryImpl
 import kib.project.data.database.usecases.UserUseCase
@@ -20,7 +22,8 @@ private val daoModule: Module = module {
 }
 
 private val repositoryModule: Module = module {
-    single<UserRepository> { UserRepositoryImpl(get(), get()) }
+    single<UserRepository> { UserRepositoryImpl(get()) }
+    single<SampleRepository> { SampleRepositoryImpl(get()) }
 }
 
 private val useCaseModule: Module = module {
