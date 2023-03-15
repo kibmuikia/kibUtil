@@ -2,10 +2,8 @@
 
 plugins {
     id("com.android.application") version "7.4.1" apply false
-//    alias(libs.plugins.android.application)
     id("com.android.library") version "7.4.1" apply false
     id("org.jetbrains.kotlin.android") version "1.8.0" apply false
-    //id("com.diffplug.spotless.spotless-plugin-gradle") version "3.27.0"
 }
 
 allprojects {
@@ -18,7 +16,8 @@ allprojects {
 
 buildscript {
     dependencies {
-        //
+//        classpath("com.diffplug.spotless:spotless-plugin-gradle:6.16.0")
+        classpath("com.diffplug.spotless:spotless-plugin-gradle:4.5.1")
     }
     repositories {
         mavenCentral()
