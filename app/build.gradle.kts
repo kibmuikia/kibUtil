@@ -3,7 +3,10 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
 }
+
+apply(from = "$rootDir/spotless.gradle")
 
 android {
     namespace = "kib.project.fast"
