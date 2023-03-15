@@ -26,6 +26,8 @@ lottie-compose = "6.0.0"
 accompanist-permissions = "0.29.1-alpha"
 retrofit = "2.9.0"
 chucker-library = "3.5.2"
+play-services-auth = "20.4.0"
+play-services-auth-api-phone = "18.0.1"
 
 [libraries]
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
@@ -44,7 +46,7 @@ compose-material3 = { module = "androidx.compose.material3:material3", version.r
 compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
-navigation-compose = { module ="androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
 test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "test-ext-junit" }
 espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso-core" }
 junit = { module = "junit:junit", version.ref = "junit" }
@@ -53,7 +55,7 @@ gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
-work-manager = { module ="androidx.work:work-runtime-ktx", version.ref = "work-manager" }
+work-manager = { module = "androidx.work:work-runtime-ktx", version.ref = "work-manager" }
 lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle-viewmodel-compose" }
 lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle-runtime-compose" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
@@ -66,10 +68,12 @@ detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", 
 gradle-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie-compose" }
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist-permissions" }
-retrofit = { module ="com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 chucker-library-debug = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker-library" }
 chucker-library-release = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chucker-library" }
+play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "play-services-auth" }
+play-services-auth-api-phone = { module = "com.google.android.gms:play-services-auth-api-phone", version.ref = "play-services-auth-api-phone" }
 
 [bundles]
 bundle-compose-ui = ["compose-ui", "compose-ui-tooling-preview"]
