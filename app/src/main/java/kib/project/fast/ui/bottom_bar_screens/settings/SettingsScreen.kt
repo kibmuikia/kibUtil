@@ -36,7 +36,7 @@ import kib.project.core.utils.showToast
 import kib.project.fast.BuildConfig
 import kib.project.fast.R
 import kib.project.fast.ui.component.SettingThemeItem
-import kib.project.fast.ui.component.SinglePersmission
+import kib.project.fast.ui.component.SinglePermission
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -93,10 +93,15 @@ fun SettingsScreenContent(
                 }
             }
         )
-        SinglePersmission(
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        SinglePermission(
             permission = android.Manifest.permission.READ_SMS
         )
+
         Spacer(modifier = Modifier.height(8.dp))
+
         LazyColumn(
             contentPadding = PaddingValues(12.dp)
         ) {

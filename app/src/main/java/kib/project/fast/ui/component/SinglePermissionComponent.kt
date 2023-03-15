@@ -1,22 +1,25 @@
+@file:OptIn(ExperimentalPermissionsApi::class)
+
 package kib.project.fast.ui.component
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,93 +30,90 @@ import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
 import kib.project.fast.R
 
-@OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun SinglePersmission(
+fun SinglePermission(
     modifier: Modifier = Modifier,
     permission: String, // Eg: android.Manifest.permission.ACCESS_NETWORK_STATE
 ) {
     val permissionState = rememberPermissionState(permission = permission)
-
-    SinglePersimissionContent(
+    SinglePermissionCard(
         modifier = modifier,
         permission = permission,
         permissionState = permissionState
     )
 }
 
-@OptIn(ExperimentalPermissionsApi::class)
 @Composable
-private fun SinglePersimissionContent(
+private fun SinglePermissionCard(
     modifier: Modifier,
     permission: String,
     permissionState: PermissionState?,
 ) {
-    Column(
-        modifier = Modifier,
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+    val isPermissionGranted =
+        permissionState != null && permissionState.status.isGranted && !permissionState.status.shouldShowRationale
+    val status = if (isPermissionGranted) {
+        "The permission has been granted."
+    } else if (permissionState?.status?.shouldShowRationale == true) {
+        "The permission is important for the requested application functionality to available. Please grant the permission."
+    } else {
+        "The permission is required for the requested application functionality to be available. Please grant the permission"
+    }
+
+    Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .defaultMinSize(minHeight = 100.dp)
+            .padding(12.dp),
+        shape = RoundedCornerShape(12.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        colors = CardDefaults.cardColors(
+            contentColor = MaterialTheme.colorScheme.onPrimary,
+            containerColor = MaterialTheme.colorScheme.primary
+        )
     ) {
-        if (permissionState == null) {
+        Column(modifier = modifier) {
             Text(
-                text = "$permission has been granted",
+                text = permission,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Medium,
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.headlineMedium
+            )
+            Spacer(modifier = modifier.height(12.dp))
+            Text(
+                text = status,
+                style = MaterialTheme.typography.bodySmall,
+                fontSize = 14.sp,
                 textAlign = TextAlign.Center,
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(PaddingValues(all = 8.dp)),
-                fontSize = 16.sp,
-                color = MaterialTheme.colorScheme.onPrimary
+                    .padding(8.dp)
             )
-            return
-        }
-        if (permissionState.status.isGranted) {
-            Text(
-                text = "$permission has been granted",
-                textAlign = TextAlign.Center,
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(PaddingValues(all = 8.dp)),
-                fontSize = 16.sp,
-                color = Color.Black
-            )
-        } else {
-            Text(
-                text = if (permissionState.status.shouldShowRationale) {
-                    "The $permission is important for this app. Please grant the permission."
-                } else {
-                    "$permission is required for the requested app functionality to be available. \nPlease grant the permission"
-                },
-                textAlign = TextAlign.Center,
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(PaddingValues(all = 8.dp)),
-                fontSize = 16.sp,
-                color = MaterialTheme.colorScheme.onPrimary,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 4,
-            )
-            Spacer(modifier = Modifier.height(12.dp))
-            Button(onClick = {
-                permissionState.launchPermissionRequest()
-            }) {
-                Text(
-                    text = stringResource(id = R.string.request_permission),
-                    color = MaterialTheme.colorScheme.onPrimary,
-                )
+            Spacer(modifier = modifier.height(12.dp))
+            if (!isPermissionGranted) {
+                Button(
+                    onClick = {
+                        permissionState?.launchPermissionRequest()
+                    }, modifier = modifier
+                        .align(Alignment.End)
+                        .padding(end = 8.dp, bottom = 8.dp)
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.request_permission),
+                        color = MaterialTheme.colorScheme.onPrimary,
+                    )
+                }
             }
         }
     }
 }
 
-@OptIn(ExperimentalPermissionsApi::class)
 @Preview
 @Composable
-private fun SinglePersimissionContentPreview() {
+private fun SinglePermissionCardPreview() {
     val permission = android.Manifest.permission.CAMERA
-
-    SinglePersimissionContent(
-        modifier = Modifier,
-        permission = permission,
-        permissionState = null,
-    )
+    SinglePermissionCard(modifier = Modifier, permission = permission, permissionState = null)
 }
