@@ -1,5 +1,6 @@
 package kib.project.fast.ui.component
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -8,7 +9,12 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -28,9 +34,10 @@ fun BottomBar(navHostController: NavHostController) {
     if (bottomBarDestination) {
         NavigationBar(containerColor = MaterialTheme.colorScheme.primary) {
             screens.forEach { screen ->
-                NavigationBarItem(selected = currentDestination?.hierarchy?.any {
-                    it.route == screen.route
-                } == true,
+                NavigationBarItem(
+                    selected = currentDestination?.hierarchy?.any {
+                        it.route == screen.route
+                    } == true,
                     onClick = {
                         navHostController.navigate(screen.route) {
                             // popUpTo(navHostController.graph.findStartDestination().id)
@@ -38,17 +45,25 @@ fun BottomBar(navHostController: NavHostController) {
                         }
                     },
                     icon = {
-                        Icon(painter = painterResource(id = screen.icon), contentDescription = "")
+                        Icon(
+                            painter = painterResource(id = screen.icon),
+                            contentDescription = "Screen Icon"
+                        )
                     },
                     label = {
-                        Text(text = screen.label)
+                        Text(
+                            text = screen.label,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 17.sp,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(vertical = 4.dp)
+                        )
                     },
                     colors = NavigationBarItemDefaults.colors(
-                        selectedTextColor = MaterialTheme.colorScheme.secondary,
-                        selectedIconColor = MaterialTheme.colorScheme.onTertiary,
-                        indicatorColor = MaterialTheme.colorScheme.secondary,
-                        unselectedTextColor = MaterialTheme.colorScheme.tertiary,
-                        unselectedIconColor = MaterialTheme.colorScheme.tertiary
+                        unselectedIconColor = MaterialTheme.colorScheme.onPrimary,
+                        unselectedTextColor = MaterialTheme.colorScheme.onPrimary,
+                        selectedIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                        selectedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
                     )
                 )
             }
