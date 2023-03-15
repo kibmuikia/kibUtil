@@ -56,6 +56,9 @@ class AppSmsBroadcastReceiver: BroadcastReceiver() {
 }
 
 fun startAppSMSRetrieverClient(context: Context) {
+    /*
+    * Note: SMS Retrieval client will be alive for 5min maximum as per google auth SDK.
+    * */
     val client: SmsRetrieverClient = SmsRetriever.getClient(context)
     val task = client.startSmsRetriever()
     task.addOnSuccessListener { _ ->
