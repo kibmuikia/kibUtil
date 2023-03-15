@@ -25,6 +25,7 @@ class AppSmsBroadcastReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context == null) return
         if (intent == null) return
+        if (intent.action.isNullOrBlank()) return
 
         Timber.i(":: intent.action: ${intent.action}")
         if (SmsRetriever.SMS_RETRIEVED_ACTION == intent.action) {
