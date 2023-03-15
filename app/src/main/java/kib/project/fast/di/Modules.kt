@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder
 import kib.project.core.utils.provideChuckerInterceptor
 import kib.project.data.api.interfaces.SampleApi
 import kib.project.fast.main_activity.viewmodels.MainActivityViewModel
+import kib.project.fast.ui.bottom_bar_screens.about.AboutScreenViewModel
 import kib.project.fast.ui.bottom_bar_screens.home.HomeScreenViewModel
 import kib.project.fast.ui.bottom_bar_screens.settings.SettingsScreenViewModel
 import kib.project.fast.ui.component.viewmodels.AppProgressDialogViewModel
@@ -26,6 +27,7 @@ private val viewModelModule: Module = module {
     viewModel { MainActivityViewModel(get()) }
     viewModel { SplashScreenViewModel(get()) }
     viewModel { HomeScreenViewModel(get()) }
+    viewModel { AboutScreenViewModel() }
     viewModel { SettingsScreenViewModel(get()) }
     viewModel { AppProgressDialogViewModel() }
     viewModel { ExpandableListViewModel() }

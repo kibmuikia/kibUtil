@@ -35,7 +35,7 @@ fun SettingThemeItem(
             .height(72.dp)
             .padding(PaddingValues(4.dp)),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary, contentColor = MaterialTheme.colorScheme.onPrimary),
     ) {
         Row(
             modifier = modifier
@@ -44,15 +44,15 @@ fun SettingThemeItem(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = title, color = MaterialTheme.colorScheme.onTertiary, fontSize = 16.sp)
+            Text(text = title, color = MaterialTheme.colorScheme.onPrimary, fontSize = 18.sp)
             Switch(
                 checked = isEnable,
                 onCheckedChange = { onClick() },
                 colors = SwitchDefaults.colors(
-                    checkedBorderColor = MaterialTheme.colorScheme.onTertiary,
-                    checkedThumbColor = MaterialTheme.colorScheme.tertiary,
-                    uncheckedBorderColor = MaterialTheme.colorScheme.secondary,
-                    uncheckedThumbColor = MaterialTheme.colorScheme.onTertiary,
+                    checkedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                    checkedThumbColor = MaterialTheme.colorScheme.onPrimary,
+                    uncheckedBorderColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    uncheckedThumbColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 )
             )
         }
