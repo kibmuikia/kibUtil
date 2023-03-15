@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import kib.project.fast.ui.bottom_bar_screens.about.AboutScreen
 import kib.project.fast.ui.bottom_bar_screens.home.HomeScreen
 import kib.project.fast.ui.bottom_bar_screens.settings.SettingsScreen
 import kib.project.fast.ui.onboarding.OnboardingPager
@@ -25,7 +26,7 @@ fun MainNavGraph(navHostController: NavHostController) {
             SettingsScreen(navHostController = navHostController)
         }
         composable(route = BottomBarScreen.About.route) {
-            HomeScreen(navHostController = navHostController)
+            AboutScreen(navHostController = navHostController)
         }
     }
 }

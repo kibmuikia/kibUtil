@@ -1,8 +1,5 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
+package kib.project.fast.ui.bottom_bar_screens.about
 
-package kib.project.fast.ui.bottom_bar_screens.home
-
-import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,7 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -23,28 +19,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import kib.project.fast.R
-import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 
-
 @Composable
-fun HomeScreen(navHostController: NavHostController) {
-    val viewModel: HomeScreenViewModel = getViewModel()
+fun AboutScreen(navHostController: NavHostController) {
+    val viewModel: AboutScreenViewModel = getViewModel()
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
 
-    LaunchedEffect(key1 = "sampleLogin") {
-        coroutineScope.launch {
-            // viewModel.sampleLoginUser()
-            viewModel.sampleFetchMovieGenresListFromApi()
-        }
-    }
-
-    HomeScreenContent(context = context)
+    AboutScreenContent()
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreenContent(context: Context) {
+private fun AboutScreenContent() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -53,7 +41,7 @@ fun HomeScreenContent(context: Context) {
         TopAppBar(
             title = {
                 Text(
-                    text = stringResource(id = R.string.title_home),
+                    text = stringResource(id = R.string.title_about),
                     color = MaterialTheme.colorScheme.onPrimary,
                     fontWeight = FontWeight.Medium,
                     fontSize = 24.sp,
@@ -66,8 +54,8 @@ fun HomeScreenContent(context: Context) {
     }
 }
 
-@Preview
 @Composable
-fun HomeScreenContentPreview() {
-    HomeScreenContent(context = LocalContext.current)
+@Preview
+private fun AboutScreenContentPreview() {
+    AboutScreenContent()
 }
