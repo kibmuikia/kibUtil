@@ -6,7 +6,9 @@ import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -34,6 +36,7 @@ import kib.project.core.utils.showToast
 import kib.project.fast.BuildConfig
 import kib.project.fast.R
 import kib.project.fast.ui.component.SettingThemeItem
+import kib.project.fast.ui.component.SinglePermission
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -90,6 +93,15 @@ fun SettingsScreenContent(
                 }
             }
         )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        SinglePermission(
+            permission = android.Manifest.permission.READ_SMS
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
         LazyColumn(
             contentPadding = PaddingValues(12.dp)
         ) {
