@@ -26,6 +26,7 @@
         <item>Dark</item>
     </string-array>
     <string name="request_permission">Request Permission</string>
+    <string name="perform_task">Perform Task</string>
     <!--  Button Text  -->
 
     <!--  Description Text  -->
