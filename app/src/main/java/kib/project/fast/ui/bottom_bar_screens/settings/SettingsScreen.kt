@@ -97,19 +97,13 @@ fun SettingsScreenContent(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        SinglePermission(
-            permission = android.Manifest.permission.READ_SMS
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
         LazyColumn(
             contentPadding = PaddingValues(12.dp)
         ) {
             item {
                 Text(
                     text = stringResource(id = R.string.title_theme_settings),
-                    fontSize = 22.sp,
+                    style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                 )
             }
@@ -121,6 +115,13 @@ fun SettingsScreenContent(
                     onSettingThemeItemClicked(index)
                 }
             }
+            item {
+                Text(
+                    text = stringResource(id = R.string.title_other_settings),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                )
+            }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 item {
                     SinglePermission(
@@ -128,6 +129,11 @@ fun SettingsScreenContent(
                         actionPermissionGranted = { /*TODO()*/ }
                     )
                 }
+            }
+            item {
+                SinglePermission(
+                    permission = android.Manifest.permission.READ_SMS
+                )
             }
         }
     }
