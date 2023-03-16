@@ -3,6 +3,7 @@
 package kib.project.fast.ui.bottom_bar_screens.settings
 
 import android.content.Context
+import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -118,6 +119,14 @@ fun SettingsScreenContent(
                     isEnable = themeState == index
                 ) {
                     onSettingThemeItemClicked(index)
+                }
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                item {
+                    SinglePermission(
+                        permission = android.Manifest.permission.POST_NOTIFICATIONS,
+                        actionPermissionGranted = { /*TODO()*/ }
+                    )
                 }
             }
         }

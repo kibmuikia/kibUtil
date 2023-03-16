@@ -18,11 +18,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
@@ -34,12 +32,16 @@ import kib.project.fast.R
 fun SinglePermission(
     modifier: Modifier = Modifier,
     permission: String, // Eg: android.Manifest.permission.ACCESS_NETWORK_STATE
+    actionPermissionGranted: () -> Unit = {},
 ) {
     val permissionState = rememberPermissionState(permission = permission)
     SinglePermissionCard(
         modifier = modifier,
         permission = permission,
-        permissionState = permissionState
+        permissionState = permissionState,
+        actionPermissionGranted = {
+            actionPermissionGranted()
+        }
     )
 }
 
@@ -48,22 +50,24 @@ private fun SinglePermissionCard(
     modifier: Modifier,
     permission: String,
     permissionState: PermissionState?,
+    actionPermissionGranted: () -> Unit = {}
 ) {
     val isPermissionGranted =
         permissionState != null && permissionState.status.isGranted && !permissionState.status.shouldShowRationale
     val status = if (isPermissionGranted) {
         "The permission has been granted."
     } else if (permissionState?.status?.shouldShowRationale == true) {
-        "The permission is important for the requested application functionality to available. Please grant the permission."
+        "Please grant the permission, for the application to function as expected."
     } else {
-        "The permission is required for the requested application functionality to be available. Please grant the permission"
+        "The permission is required for the requested application functionality to be available. \nPlease grant the permission"
     }
+    val title = permission.split(".")[2] ?: permission
 
     Card(
         modifier = modifier
             .fillMaxWidth()
             .defaultMinSize(minHeight = 100.dp)
-            .padding(12.dp),
+            .padding(top = 8.dp),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         colors = CardDefaults.cardColors(
@@ -73,39 +77,42 @@ private fun SinglePermissionCard(
     ) {
         Column(modifier = modifier) {
             Text(
-                text = permission,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
+                text = title,
                 modifier = modifier
                     .fillMaxWidth()
                     .padding(top = 8.dp),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.headlineMedium
+                style = MaterialTheme.typography.titleMedium
             )
             Spacer(modifier = modifier.height(12.dp))
             Text(
                 text = status,
-                style = MaterialTheme.typography.bodySmall,
-                fontSize = 14.sp,
+                style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center,
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(8.dp)
+                    .padding(horizontal = 4.dp)
             )
             Spacer(modifier = modifier.height(12.dp))
-            if (!isPermissionGranted) {
-                Button(
-                    onClick = {
+            Button(
+                onClick = {
+                    if (!isPermissionGranted) {
                         permissionState?.launchPermissionRequest()
-                    }, modifier = modifier
-                        .align(Alignment.End)
-                        .padding(end = 8.dp, bottom = 8.dp)
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.request_permission),
-                        color = MaterialTheme.colorScheme.onPrimary,
-                    )
-                }
+                    } else {
+                        actionPermissionGranted()
+                    }
+                },
+                modifier = modifier
+                    .align(Alignment.End)
+            ) {
+                Text(
+                    text = if (!isPermissionGranted) {
+                        stringResource(id = R.string.request_permission)
+                    } else {
+                        stringResource(id = R.string.perform_task)
+                    },
+                    color = MaterialTheme.colorScheme.onPrimary,
+                )
             }
         }
     }
