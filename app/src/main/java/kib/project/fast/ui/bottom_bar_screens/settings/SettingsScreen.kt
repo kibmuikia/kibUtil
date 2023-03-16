@@ -3,6 +3,7 @@
 package kib.project.fast.ui.bottom_bar_screens.settings
 
 import android.content.Context
+import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -34,6 +35,7 @@ import kib.project.core.utils.showToast
 import kib.project.fast.BuildConfig
 import kib.project.fast.R
 import kib.project.fast.ui.component.SettingThemeItem
+import kib.project.fast.ui.component.SinglePermission
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -106,6 +108,14 @@ fun SettingsScreenContent(
                     isEnable = themeState == index
                 ) {
                     onSettingThemeItemClicked(index)
+                }
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                item {
+                    SinglePermission(
+                        permission = android.Manifest.permission.POST_NOTIFICATIONS,
+                        actionPermissionGranted = { /*TODO()*/ }
+                    )
                 }
             }
         }
