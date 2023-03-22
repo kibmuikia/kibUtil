@@ -19,6 +19,7 @@ val dbModule: Module = module {
 
 private val daoModule: Module = module {
     single { get<AppDatabase>().userDao() }
+    single { get<AppDatabase>().appSmsMessageDao() }
 }
 
 private val repositoryModule: Module = module {
