@@ -29,3 +29,15 @@ val testAppSmsMessage = AppSmsMessage(
     status = 1,
     type = 1
 )
+
+data class AppSmsMessageUiModel(
+    val address: String?,
+    val body: String?,
+    val date: String?,
+    val person: String? = null,
+    val threadId: String?,
+    val protocol: String?,
+    val serviceCenter: String? = null,
+    val status: String?,
+    val type: String?
+)

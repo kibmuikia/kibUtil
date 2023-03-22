@@ -67,7 +67,7 @@ private fun SinglePermissionCard(
         modifier = modifier
             .fillMaxWidth()
             .defaultMinSize(minHeight = 100.dp)
-            .padding(top = 8.dp),
+            .padding(top = 8.dp, start = 12.dp, end = 12.dp),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         colors = CardDefaults.cardColors(

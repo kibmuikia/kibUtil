@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import kib.project.fast.R
+import kib.project.fast.ui.component.ReadSmsMessages
 import kib.project.fast.ui.component.ViewSms
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
@@ -69,6 +70,7 @@ fun HomeScreenContent(context: Context) {
         )
         Spacer(modifier = Modifier.height(12.dp))
         ViewSms(context = context, modifier = Modifier)
+        ReadSmsMessages()
     }
 }
 
