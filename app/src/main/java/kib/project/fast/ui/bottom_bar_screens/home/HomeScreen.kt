@@ -3,6 +3,7 @@
 package kib.project.fast.ui.bottom_bar_screens.home
 
 import android.content.Context
+import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import kib.project.fast.R
+import kib.project.fast.ui.component.TimeCard
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 
@@ -63,6 +65,9 @@ fun HomeScreenContent(context: Context) {
             },
             colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
         )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            TimeCard()
+        }
     }
 }
 
