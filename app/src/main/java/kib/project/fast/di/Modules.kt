@@ -9,6 +9,7 @@ import kib.project.fast.ui.bottom_bar_screens.home.HomeScreenViewModel
 import kib.project.fast.ui.bottom_bar_screens.settings.SettingsScreenViewModel
 import kib.project.fast.ui.component.viewmodels.AppProgressDialogViewModel
 import kib.project.fast.ui.component.viewmodels.ExpandableListViewModel
+import kib.project.fast.ui.component.viewmodels.MpesaTextMessageViewModel
 import kib.project.fast.ui.component.viewmodels.ViewSmsViewModel
 import kib.project.fast.ui.splash.SplashScreenViewModel
 import kib.project.fast.utils.AuthInterceptor
@@ -33,6 +34,7 @@ private val viewModelModule: Module = module {
     viewModel { AppProgressDialogViewModel() }
     viewModel { ExpandableListViewModel() }
     viewModel { ViewSmsViewModel() }
+    viewModel { MpesaTextMessageViewModel() }
 }
 
 private val networkingModule: Module = module {
