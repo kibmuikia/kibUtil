@@ -12,9 +12,15 @@ class MpesaTextMessageViewModel: ViewModel() {
     private val _uiState = MutableStateFlow(MpesaTextMessageUiState())
     val uiState = _uiState.asStateFlow()
 
-    fun setReadSmsPermissionState(state: Boolean) = viewModelScope.launch {
+    fun setSmsPermissionState(state: Boolean) = viewModelScope.launch {
         _uiState.update {
             it.copy(isSmsPermissionGranted = state)
+        }
+    }
+
+    fun setMpesaMessage(message: String) = viewModelScope.launch {
+        _uiState.update {
+            it.copy(mpesaMessage = message)
         }
     }
 

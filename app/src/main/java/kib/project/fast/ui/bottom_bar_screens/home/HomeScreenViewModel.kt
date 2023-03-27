@@ -46,20 +46,12 @@ class HomeScreenViewModel(
                 is NetworkCallResult.Success -> {
                     Timber.i(":: Error[ msg = ${response.data} ].")
                 }
+
                 is NetworkCallResult.Error -> {
                     Timber.i(":: Error[ msg = ${response.message} ].")
                 }
             }
         }
-    }
-
-    init {
-        Timber.i(":: vm-init")
-    }
-
-    override fun onCleared() {
-        Timber.i(":: vm-cleared")
-        super.onCleared()
     }
 
 }

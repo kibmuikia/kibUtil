@@ -27,11 +27,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import kib.project.data.api.models.requests.PostSmsRequest
-import kib.project.data.database.entities.textMessage.AppSmsMessageUiModel
 import kib.project.fast.R
-import kib.project.fast.ui.component.ReadSmsMessages
-import kib.project.fast.ui.component.ViewSms
-import kotlinx.coroutines.launch
+import kib.project.fast.ui.component.MpesaTextMessage
+import kotlinx.coroutines.CoroutineScope
 import org.koin.androidx.compose.getViewModel
 
 
@@ -42,22 +40,30 @@ fun HomeScreen(navHostController: NavHostController) {
     val context = LocalContext.current
     val uiState = viewModel.uiState.collectAsState()
 
-    /*LaunchedEffect(key1 = "sampleLogin") {
+    /*LaunchedEffect(Unit) {
         coroutineScope.launch {
             viewModel.sampleFetchMovieGenresListFromApi()
         }
     }*/
-    LaunchedEffect(key1 = "uiState.value.message") {
+    LaunchedEffect(uiState.value.message) {
         if (!uiState.value.message.isNullOrBlank()) {
-            viewModel.postSms(postSmsRequest = PostSmsRequest(message = uiState.value.message))
+            viewModel.postSms(
+                postSmsRequest = PostSmsRequest(
+                    message = uiState.value.message ?: return@LaunchedEffect
+                )
+            )
         }
     }
 
-    HomeScreenContent(context = context, viewModel = viewModel)
+    HomeScreenContent(context = context, viewModel = viewModel, coroutineScope = coroutineScope)
 }
 
 @Composable
-fun HomeScreenContent(context: Context, viewModel: HomeScreenViewModel) {
+fun HomeScreenContent(
+    context: Context,
+    viewModel: HomeScreenViewModel,
+    coroutineScope: CoroutineScope
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -76,26 +82,24 @@ fun HomeScreenContent(context: Context, viewModel: HomeScreenViewModel) {
             },
             colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
         )
+
         Spacer(modifier = Modifier.height(12.dp))
-        ViewSms(context = context, modifier = Modifier)
-        val coroutineScope = rememberCoroutineScope()
-        ReadSmsMessages() { messages: List<AppSmsMessageUiModel> ->
-            messages.forEachIndexed { index, message ->
-                if (index == 0) {
-                    message.body?.let { messageBody ->
-                        viewModel.setMessage(message = messageBody)
-                        coroutineScope.launch {
-                            viewModel.postSms(postSmsRequest = PostSmsRequest(message = messageBody))
-                        }
-                    }
-                }
+
+        MpesaTextMessage(
+            context = context,
+            sms = { message ->
+                viewModel.setMessage(message = message)
             }
-        }
+        )
     }
 }
 
 @Preview
 @Composable
 fun HomeScreenContentPreview() {
-    HomeScreenContent(context = LocalContext.current, viewModel = getViewModel())
+    HomeScreenContent(
+        context = LocalContext.current,
+        viewModel = getViewModel(),
+        coroutineScope = rememberCoroutineScope()
+    )
 }

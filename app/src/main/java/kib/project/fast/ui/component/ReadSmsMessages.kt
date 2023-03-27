@@ -98,7 +98,7 @@ private fun processTextMessages(context: Context): List<AppSmsMessageUiModel> {
                 status = status,
                 type = type
             )
-            Timber.i(":: sms: \n$sms **")
+            // Timber.i(":: sms: $sms **")
             /*
             * Sample:
             * AppSmsMessageUiModel(address=6505551212, body=Android is always a sweet treat!, date=1679454058177, person=null, threadId=2, protocol=0, serviceCenter=null, status=-1, type=1)
@@ -135,7 +135,7 @@ private fun showMessages(
         }
         itemsIndexed(items = messages) { index, item ->
             Text(
-                text = "$index : $item",
+                text = "$index] ${item.address} : ${item.body}",
                 modifier = modifier.padding(12.dp),
                 textAlign = TextAlign.Start,
                 style = MaterialTheme.typography.bodyLarge
