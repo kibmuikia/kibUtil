@@ -27,7 +27,9 @@ import timber.log.Timber
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun ReadSmsMessages() {
+fun ReadSmsMessages(
+    messages: (List<AppSmsMessageUiModel>) -> Unit = {},
+) {
     val context = LocalContext.current
     val permissionState = rememberPermissionState(permission = android.Manifest.permission.READ_SMS)
     val isPermissionGranted =
@@ -42,6 +44,7 @@ fun ReadSmsMessages() {
         processTextMessages(context).let { messages ->
             Timber.i(":: retrieved ${messages.size} messages.")
             showMessages(messages = messages, context = context, modifier = Modifier)
+            messages(messages)
         }
     }
 

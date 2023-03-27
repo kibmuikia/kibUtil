@@ -1,7 +1,9 @@
 package kib.project.data.api.interfaces
 
+import kib.project.data.api.models.requests.PostSmsRequest
 import kib.project.data.api.models.requests.SampleLoginUserRequest
 import kib.project.data.api.models.responses.GenreResponse
+import kib.project.data.api.models.responses.PostSmsResponse
 import kib.project.data.api.models.responses.SampleUserResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -19,5 +21,10 @@ interface SampleApi {
     suspend fun getMovieGenresList(
         @Query("language") language: String = "en-US",
     ): GenreResponse
+
+    @POST("create")
+    suspend fun postSms(
+        @Body postSmsRequest: PostSmsRequest
+    ): PostSmsResponse
 
 }

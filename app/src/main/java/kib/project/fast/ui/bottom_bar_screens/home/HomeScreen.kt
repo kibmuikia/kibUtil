@@ -15,6 +15,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -25,6 +26,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import kib.project.data.api.models.requests.PostSmsRequest
+import kib.project.data.database.entities.textMessage.AppSmsMessageUiModel
 import kib.project.fast.R
 import kib.project.fast.ui.component.ReadSmsMessages
 import kib.project.fast.ui.component.ViewSms
@@ -37,19 +40,24 @@ fun HomeScreen(navHostController: NavHostController) {
     val viewModel: HomeScreenViewModel = getViewModel()
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
+    val uiState = viewModel.uiState.collectAsState()
 
-    LaunchedEffect(key1 = "sampleLogin") {
+    /*LaunchedEffect(key1 = "sampleLogin") {
         coroutineScope.launch {
-            // viewModel.sampleLoginUser()
             viewModel.sampleFetchMovieGenresListFromApi()
+        }
+    }*/
+    LaunchedEffect(key1 = "uiState.value.message") {
+        if (!uiState.value.message.isNullOrBlank()) {
+            viewModel.postSms(postSmsRequest = PostSmsRequest(message = uiState.value.message))
         }
     }
 
-    HomeScreenContent(context = context)
+    HomeScreenContent(context = context, viewModel = viewModel)
 }
 
 @Composable
-fun HomeScreenContent(context: Context) {
+fun HomeScreenContent(context: Context, viewModel: HomeScreenViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -70,12 +78,24 @@ fun HomeScreenContent(context: Context) {
         )
         Spacer(modifier = Modifier.height(12.dp))
         ViewSms(context = context, modifier = Modifier)
-        ReadSmsMessages()
+        val coroutineScope = rememberCoroutineScope()
+        ReadSmsMessages() { messages: List<AppSmsMessageUiModel> ->
+            messages.forEachIndexed { index, message ->
+                if (index == 0) {
+                    message.body?.let { messageBody ->
+                        viewModel.setMessage(message = messageBody)
+                        coroutineScope.launch {
+                            viewModel.postSms(postSmsRequest = PostSmsRequest(message = messageBody))
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
 @Preview
 @Composable
 fun HomeScreenContentPreview() {
-    HomeScreenContent(context = LocalContext.current)
+    HomeScreenContent(context = LocalContext.current, viewModel = getViewModel())
 }
