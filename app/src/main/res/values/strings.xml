@@ -12,6 +12,7 @@
     <string name="title_theme_settings">Theme Settings</string>
     <string name="title_other_settings">Other Settings</string>
     <string name="title_messages">Messages</string>
+    <string name="title_mpesa_message">Mpesa Text Message</string>
     <!--  Titles  -->
 
     <!--  Placeholders  -->
@@ -29,10 +30,13 @@
     </string-array>
     <string name="request_permission">Request Permission</string>
     <string name="perform_task">Perform Task</string>
+    <string name="post_message">Post Message</string>
     <!--  Button Text  -->
 
     <!--  Description Text  -->
     <string name="ic_info_content_description">Information Icon</string>
     <!--  Description Text  -->
+
+    <string name="no_mpesa_sms_received">As of now, there has been no text message from M-Pesa received.</string>
 
 </resources>

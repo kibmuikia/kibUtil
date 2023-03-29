@@ -3,7 +3,6 @@
 package kib.project.fast.ui.component
 
 import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,10 +24,12 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
+import kib.project.fast.R
 import kib.project.fast.ui.component.viewmodels.MpesaTextMessageViewModel
 import kib.project.fast.utils.ACTION_SMS_RECEIVE
 import kib.project.fast.utils.PERMISSION_RECEIVE_SMS
 import kib.project.fast.utils.fetchTextMessage
+import kib.project.fast.utils.showToast
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -59,11 +61,7 @@ fun MpesaTextMessage(
                     if (action == ACTION_SMS_RECEIVE) {
                         intent.fetchTextMessage().let { triple: Triple<String?, String, Long>? ->
                             if (triple == null) {
-                                Toast.makeText(
-                                    context,
-                                    "Received sms is NOT a M-Pesa transaction sms.",
-                                    Toast.LENGTH_LONG
-                                ).show()
+                                context.showToast(message = "Received sms is NOT a M-Pesa transaction sms.")
                             }
                             triple?.let {
                                 viewModel.setMpesaMessage(it.second)
@@ -84,12 +82,16 @@ private fun MessageCard(message: String) {
         modifier = Modifier.padding(12.dp),
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(4.dp),
+        colors = CardDefaults.cardColors(
+            contentColor = MaterialTheme.colorScheme.onPrimary,
+            containerColor = MaterialTheme.colorScheme.primary
+        )
     ) {
         Column(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = "Mpesa Message",
+                text = stringResource(id = R.string.title_mpesa_message),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(12.dp),
@@ -98,7 +100,7 @@ private fun MessageCard(message: String) {
             )
 
             Text(
-                text = message.ifEmpty { "No Mpesa message received yet!" },
+                text = message.ifEmpty { stringResource(id = R.string.no_mpesa_sms_received) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 12.dp, vertical = 8.dp),
@@ -106,19 +108,18 @@ private fun MessageCard(message: String) {
                 style = MaterialTheme.typography.bodyMedium
             )
 
-            TextButton(
-                onClick = { /* Handle button click */ },
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .padding(12.dp)
-            ) {
-                Text(
-                    text = if (message.isEmpty()) {
-                        "Hmmm!"
-                    } else {
-                        "Post Message"
-                    }
-                )
+            if (message.isNotEmpty()) {
+                TextButton(
+                    onClick = { /* Handle button click */ },
+                    modifier = Modifier
+                        .align(Alignment.End)
+                        .padding(12.dp)
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.post_message),
+                        color = MaterialTheme.colorScheme.onPrimary,
+                    )
+                }
             }
         }
     }
