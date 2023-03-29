@@ -3,8 +3,6 @@
 package kib.project.fast.ui.component
 
 import android.content.Context
-import android.content.Intent
-import android.telephony.SmsMessage
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,9 +27,8 @@ import com.google.accompanist.permissions.shouldShowRationale
 import kib.project.fast.ui.component.viewmodels.MpesaTextMessageViewModel
 import kib.project.fast.utils.ACTION_SMS_RECEIVE
 import kib.project.fast.utils.PERMISSION_RECEIVE_SMS
-import kib.project.fast.utils.isMpesaMessage
+import kib.project.fast.utils.fetchTextMessage
 import org.koin.androidx.compose.getViewModel
-import timber.log.Timber
 
 @Composable
 fun MpesaTextMessage(
@@ -51,27 +48,26 @@ fun MpesaTextMessage(
             permission = PERMISSION_RECEIVE_SMS,
             actionPermissionGranted = {
                 viewModel.setSmsPermissionState(state = true)
-            })
+            }
+        )
     } else {
         SystemBroadcastReceiver(
             context = context,
             systemAction = ACTION_SMS_RECEIVE,
-            onSystemEvent = { intent: Intent? ->
-                intent?.let { gotIntent ->
-                    gotIntent.action?.let { action ->
-                        if (action == ACTION_SMS_RECEIVE) {
-                            processIntentAndFetchTextMessages(intent = intent).let { triple ->
-                                if (triple == null) {
-                                    Toast.makeText(
-                                        context,
-                                        "Received sms is NOT a M-Pesa transaction sms.",
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                }
-                                triple?.let {
-                                    viewModel.setMpesaMessage(it.second)
-                                    sms(it.second)
-                                }
+            onSystemEvent = { intent ->
+                intent.action?.let { action ->
+                    if (action == ACTION_SMS_RECEIVE) {
+                        intent.fetchTextMessage().let { triple: Triple<String?, String, Long>? ->
+                            if (triple == null) {
+                                Toast.makeText(
+                                    context,
+                                    "Received sms is NOT a M-Pesa transaction sms.",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                            triple?.let {
+                                viewModel.setMpesaMessage(it.second)
+                                sms(it.second)
                             }
                         }
                     }
@@ -132,43 +128,4 @@ private fun MessageCard(message: String) {
 @Preview
 private fun MessageCardPreview() {
     MessageCard(message = "")
-}
-
-private fun processIntentAndFetchTextMessages(intent: Intent): Triple<String?, String, Long>? {
-    try {
-        val pduType = "pdus"
-        val bundle = intent.extras
-        val pduArray = bundle?.get(pduType) as Array<*>?
-        val format = bundle?.getString("format")
-        val messages = mutableListOf<Triple<String, String, Long>>()
-
-        var sender: String? = null
-        var smsBody = ""
-        var timestampMillis = 0L
-
-        pduArray?.forEachIndexed { _, pdu ->
-            val sms = SmsMessage.createFromPdu(pdu as ByteArray, format)
-            sender = sms.originatingAddress
-            smsBody += sms.messageBody
-            timestampMillis = sms.timestampMillis
-            messages.add(
-                Triple(
-                    first = sender.orEmpty(),
-                    second = smsBody,
-                    third = timestampMillis
-                )
-            )
-        }
-
-        Timber.i(":: Received SMS from $sender: $smsBody (timestamp: $timestampMillis)")
-
-        return if (smsBody.isMpesaMessage()) {
-            Triple(first = sender, second = smsBody, third = timestampMillis)
-        } else {
-            null
-        }
-    } catch (e: Exception) {
-        Timber.e(e)
-        return null
-    }
 }

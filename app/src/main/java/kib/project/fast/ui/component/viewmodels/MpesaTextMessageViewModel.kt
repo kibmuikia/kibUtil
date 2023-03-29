@@ -23,13 +23,4 @@ class MpesaTextMessageViewModel: ViewModel() {
             it.copy(mpesaMessage = message)
         }
     }
-
-    init {
-        //
-    }
-
-    override fun onCleared() {
-        //
-        super.onCleared()
-    }
 }
