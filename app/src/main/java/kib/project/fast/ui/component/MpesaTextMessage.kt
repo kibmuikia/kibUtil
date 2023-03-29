@@ -2,12 +2,8 @@
 
 package kib.project.fast.ui.component
 
-import android.Manifest
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
-import android.provider.Telephony
 import android.telephony.SmsMessage
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
@@ -20,10 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -34,13 +27,11 @@ import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
 import kib.project.fast.ui.component.viewmodels.MpesaTextMessageViewModel
+import kib.project.fast.utils.ACTION_SMS_RECEIVE
+import kib.project.fast.utils.PERMISSION_RECEIVE_SMS
 import kib.project.fast.utils.isMpesaMessage
 import org.koin.androidx.compose.getViewModel
 import timber.log.Timber
-
-// const val PERMISSION_READ_SMS = Manifest.permission.READ_SMS
-const val PERMISSION_RECEIVE_SMS = Manifest.permission.RECEIVE_SMS
-const val ACTION_SMS_RECEIVE = Telephony.Sms.Intents.SMS_RECEIVED_ACTION
 
 @Composable
 fun MpesaTextMessage(
@@ -73,7 +64,7 @@ fun MpesaTextMessage(
                                 if (triple == null) {
                                     Toast.makeText(
                                         context,
-                                        "Received sms is NOT a M-Pesa transaction.",
+                                        "Received sms is NOT a M-Pesa transaction sms.",
                                         Toast.LENGTH_LONG
                                     ).show()
                                 }
@@ -141,36 +132,6 @@ private fun MessageCard(message: String) {
 @Preview
 private fun MessageCardPreview() {
     MessageCard(message = "")
-}
-
-@Composable
-fun SystemBroadcastReceiver(
-    context: Context,
-    systemAction: String,
-    onSystemEvent: (intent: Intent?) -> Unit
-) {
-    // Grab the current context in this part of the UI tree
-    // val context = LocalContext.current
-
-    // Safely use the latest onSystemEvent lambda passed to the function
-    val currentOnSystemEvent by rememberUpdatedState(onSystemEvent)
-
-    // If either context or systemAction changes, unregister and register again
-    DisposableEffect(context, systemAction) {
-        val intentFilter = IntentFilter(systemAction)
-        val broadcast = object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent?) {
-                currentOnSystemEvent(intent)
-            }
-        }
-
-        context.registerReceiver(broadcast, intentFilter)
-
-        // When the effect leaves the Composition, remove the callback
-        onDispose {
-            context.unregisterReceiver(broadcast)
-        }
-    }
 }
 
 private fun processIntentAndFetchTextMessages(intent: Intent): Triple<String?, String, Long>? {

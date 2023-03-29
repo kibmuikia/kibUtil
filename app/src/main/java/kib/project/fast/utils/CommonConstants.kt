@@ -1,5 +1,7 @@
 package kib.project.fast.utils
 
+import android.Manifest
+import android.provider.Telephony
 import kib.project.fast.BuildConfig
 
 const val EXPANSION_TRANSITION_DURATION = 450
@@ -14,3 +16,7 @@ val BASEURL = if (BuildConfig.BUILD_TYPE == "release") {
 } else {
     "https://5334-196-107-168-122.ngrok.io/transaction/" //"https://api.themoviedb.org/3/" // "https://sample-staging-api.com/v1/"
 }
+
+const val PERMISSION_READ_SMS = Manifest.permission.READ_SMS
+const val PERMISSION_RECEIVE_SMS = Manifest.permission.RECEIVE_SMS
+const val ACTION_SMS_RECEIVE = Telephony.Sms.Intents.SMS_RECEIVED_ACTION
