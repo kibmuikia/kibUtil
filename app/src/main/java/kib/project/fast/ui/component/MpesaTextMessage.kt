@@ -34,7 +34,7 @@ import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
 import kib.project.fast.ui.component.viewmodels.MpesaTextMessageViewModel
-import kib.project.fast.utils.validateTextMessage
+import kib.project.fast.utils.isMpesaMessage
 import org.koin.androidx.compose.getViewModel
 import timber.log.Timber
 
@@ -199,13 +199,11 @@ private fun processIntentAndFetchTextMessages(intent: Intent): Triple<String?, S
             )
         }
 
-        val isMpesaSms = validateTextMessage(message = smsBody)
-        Timber.i(":: isMpesaSms[ $isMpesaSms ]: Received SMS from $sender: $smsBody (timestamp: $timestampMillis)")
+        Timber.i(":: Received SMS from $sender: $smsBody (timestamp: $timestampMillis)")
 
-        return if (isMpesaSms) {
+        return if (smsBody.isMpesaMessage()) {
             Triple(first = sender, second = smsBody, third = timestampMillis)
         } else {
-            Timber.i(":: Sms is not a M-Pesa text message!, returning null.")
             null
         }
     } catch (e: Exception) {
