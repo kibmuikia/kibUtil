@@ -1,6 +1,6 @@
 package kib.project.fast.ui.component
 
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -47,16 +47,16 @@ fun BottomBar(navHostController: NavHostController) {
                     icon = {
                         Icon(
                             painter = painterResource(id = screen.icon),
-                            contentDescription = "Screen Icon"
+                            contentDescription = "Screen Icon",
+                            modifier = Modifier.size(22.dp)
                         )
                     },
                     label = {
                         Text(
                             text = screen.label,
                             fontWeight = FontWeight.Medium,
-                            fontSize = 17.sp,
+                            fontSize = 16.sp,
                             textAlign = TextAlign.Center,
-                            modifier = Modifier.padding(vertical = 4.dp)
                         )
                     },
                     colors = NavigationBarItemDefaults.colors(
