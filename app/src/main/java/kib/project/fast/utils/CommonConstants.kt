@@ -14,7 +14,7 @@ const val EXPANSION_TRANSITION_DURATION = 450
 val BASEURL = if (BuildConfig.BUILD_TYPE == "release") {
     "https://api.themoviedb.org/3/" // "https://sample-prod-api.com/v1/"
 } else {
-    "https://5334-196-107-168-122.ngrok.io/transaction/" //"https://api.themoviedb.org/3/" // "https://sample-staging-api.com/v1/"
+    "https://a62d-41-212-34-195.ngrok.io/" //"https://api.themoviedb.org/3/" // "https://sample-staging-api.com/v1/"
 }
 
 const val PERMISSION_READ_SMS = Manifest.permission.READ_SMS

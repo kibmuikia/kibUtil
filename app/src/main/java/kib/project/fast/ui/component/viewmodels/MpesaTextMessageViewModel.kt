@@ -24,12 +24,6 @@ class MpesaTextMessageViewModel(
         }
     }
 
-    fun setMpesaMessage(message: String) = viewModelScope.launch {
-        _uiState.update {
-            it.copy(mpesaMessage = message)
-        }
-    }
-
     fun setMpesaSmsTriple(triple: Triple<String?, String, Long>) = viewModelScope.launch {
         _uiState.update {
             it.copy(mpesaSmsTriple = triple)

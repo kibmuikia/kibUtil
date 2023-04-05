@@ -70,7 +70,6 @@ fun MpesaTextMessage(
                                 context.showToast(message = "Received sms is NOT a M-Pesa transaction sms.")
                             }
                             triple?.let {
-                                viewModel.setMpesaMessage(message = it.second)
                                 viewModel.setMpesaSmsTriple(triple = triple)
                                 sms(it.second)
                             }
@@ -79,7 +78,7 @@ fun MpesaTextMessage(
                 }
             }
         )
-        MessageCard(message = uiState.value.mpesaMessage)
+        MessageCard(message = uiState.value.mpesaSmsTriple?.second ?: "")
         if (uiState.value.previousMpesaMessages.isNotEmpty()) {
             PreviousMessages(
                 previousMpesaMessages = uiState.value.previousMpesaMessages,
