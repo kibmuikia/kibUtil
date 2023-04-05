@@ -12,6 +12,7 @@
     <string name="title_theme_settings">Theme Settings</string>
     <string name="title_other_settings">Other Settings</string>
     <string name="title_messages">Messages</string>
+    <string name="title_previous_messages">Previous Messages</string>
     <string name="title_mpesa_message">Mpesa Text Message</string>
     <!--  Titles  -->
 

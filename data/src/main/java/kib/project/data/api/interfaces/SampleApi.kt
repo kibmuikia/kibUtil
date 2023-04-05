@@ -22,7 +22,7 @@ interface SampleApi {
         @Query("language") language: String = "en-US",
     ): GenreResponse
 
-    @POST("create")
+    @POST("transaction/create")
     suspend fun postSms(
         @Body postSmsRequest: PostSmsRequest
     ): PostSmsResponse

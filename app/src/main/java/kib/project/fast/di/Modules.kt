@@ -34,7 +34,7 @@ private val viewModelModule: Module = module {
     viewModel { AppProgressDialogViewModel() }
     viewModel { ExpandableListViewModel() }
     viewModel { ViewSmsViewModel() }
-    viewModel { MpesaTextMessageViewModel() }
+    viewModel { MpesaTextMessageViewModel(get()) }
 }
 
 private val networkingModule: Module = module {

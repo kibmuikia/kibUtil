@@ -3,9 +3,12 @@
 package kib.project.fast.ui.component
 
 import android.content.Context
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -16,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,12 +28,14 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
+import kib.project.data.database.entities.textMessage.MpesaSms
 import kib.project.fast.R
 import kib.project.fast.ui.component.viewmodels.MpesaTextMessageViewModel
 import kib.project.fast.utils.ACTION_SMS_RECEIVE
 import kib.project.fast.utils.PERMISSION_RECEIVE_SMS
 import kib.project.fast.utils.fetchTextMessage
 import kib.project.fast.utils.showToast
+import kib.project.fast.utils.toDateTime
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -64,7 +70,8 @@ fun MpesaTextMessage(
                                 context.showToast(message = "Received sms is NOT a M-Pesa transaction sms.")
                             }
                             triple?.let {
-                                viewModel.setMpesaMessage(it.second)
+                                viewModel.setMpesaMessage(message = it.second)
+                                viewModel.setMpesaSmsTriple(triple = triple)
                                 sms(it.second)
                             }
                         }
@@ -73,6 +80,12 @@ fun MpesaTextMessage(
             }
         )
         MessageCard(message = uiState.value.mpesaMessage)
+        if (uiState.value.previousMpesaMessages.isNotEmpty()) {
+            PreviousMessages(
+                previousMpesaMessages = uiState.value.previousMpesaMessages,
+                context = context
+            )
+        }
     }
 }
 
@@ -129,4 +142,75 @@ private fun MessageCard(message: String) {
 @Preview
 private fun MessageCardPreview() {
     MessageCard(message = "")
+}
+
+@Composable
+private fun PreviousMessages(
+    previousMpesaMessages: List<MpesaSms>,
+    context: Context,
+    modifier: Modifier = Modifier,
+) {
+    LazyColumn(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        item {
+            Text(
+                text = stringResource(id = R.string.title_previous_messages),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+            )
+        }
+        itemsIndexed(items = previousMpesaMessages) { index, item ->
+            Card(
+                modifier = Modifier.padding(12.dp),
+                shape = RoundedCornerShape(8.dp),
+                elevation = CardDefaults.cardElevation(2.dp),
+                colors = CardDefaults.cardColors(
+                    contentColor = MaterialTheme.colorScheme.onPrimary,
+                    containerColor = MaterialTheme.colorScheme.primary
+                )
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = item.messageBody,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 12.dp, vertical = 8.dp),
+                        textAlign = TextAlign.Start,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+
+                    Text(
+                        text = "Sender: ${item.sender}",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 12.dp, vertical = 8.dp),
+                        textAlign = TextAlign.Start,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+
+                    Text(
+                        text = "at ${item.timeStamp.toDateTime() ?: item.timeStamp}",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 12.dp, vertical = 8.dp),
+                        textAlign = TextAlign.End,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+@Preview
+private fun PreviousMessagesPreview() {
+    PreviousMessages(previousMpesaMessages = emptyList(), context = LocalContext.current)
 }

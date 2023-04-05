@@ -28,6 +28,7 @@ retrofit = "2.9.0"
 chucker-library = "3.5.2"
 play-services-auth = "20.4.0"
 play-services-auth-api-phone = "18.0.1"
+ksp = "1.8.0-1.0.9"
 
 [libraries]
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
@@ -74,6 +75,7 @@ chucker-library-debug = { module = "com.github.chuckerteam.chucker:library", ver
 chucker-library-release = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chucker-library" }
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "play-services-auth" }
 play-services-auth-api-phone = { module = "com.google.android.gms:play-services-auth-api-phone", version.ref = "play-services-auth-api-phone" }
+ksp-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
 
 [bundles]
 bundle-compose-ui = ["compose-ui", "compose-ui-tooling-preview"]
