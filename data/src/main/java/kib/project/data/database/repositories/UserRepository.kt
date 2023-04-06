@@ -1,7 +1,7 @@
 package kib.project.data.database.repositories
 
-import User
 import kib.project.data.database.dao.UserDao
+import kib.project.data.database.entities.User
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

@@ -1,10 +1,10 @@
 package kib.project.data.database
 
-import User
 import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import kib.project.data.database.dao.UserDao
+import kib.project.data.database.entities.User
 
 @androidx.room.Database(
     entities = [

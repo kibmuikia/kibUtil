@@ -1,3 +1,5 @@
+package kib.project.data.database.entities
+
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
