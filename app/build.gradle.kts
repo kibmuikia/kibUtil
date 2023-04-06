@@ -116,7 +116,8 @@ dependencies {
     implementation(libs.gson)
 
     // test
-    androidTestImplementation(libs.test.ext.junit)
+    androidTestImplementation(libs.junit.test.ext)
+    implementation(libs.junit.test.ext.ktx)
     androidTestImplementation(libs.espresso.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.compose.ui.test.junit4)
