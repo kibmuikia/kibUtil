@@ -120,7 +120,8 @@ dependencies {
     implementation(libs.play.services.auth.api.phone)
 
     // test
-    androidTestImplementation(libs.test.ext.junit)
+    androidTestImplementation(libs.junit.test.ext)
+    implementation(libs.junit.test.ext.ktx)
     androidTestImplementation(libs.espresso.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.compose.ui.test.junit4)
