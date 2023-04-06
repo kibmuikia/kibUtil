@@ -3,8 +3,6 @@ package kib.project.fast.ui.bottom_bar_screens.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kib.project.core.utils.NetworkCallResult
-import kib.project.data.api.models.requests.SampleLoginUserRequest
-import kib.project.data.api.models.responses.SampleUserResponse
 import kib.project.data.database.repositories.SampleRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -12,26 +10,6 @@ import timber.log.Timber
 class HomeScreenViewModel(
     private val sampleRepository: SampleRepository,
 ) : ViewModel() {
-
-    suspend fun sampleLoginUser() {
-        val sampleLoginUserRequest = SampleLoginUserRequest(
-            username = "Person Doe",
-            password = "1234"
-        )
-        val result: NetworkCallResult<SampleUserResponse> =
-            sampleRepository.sampleLoginUser(sampleLoginUserRequest = sampleLoginUserRequest)
-        when (result) {
-            is NetworkCallResult.Success -> {
-                result.data
-                Timber.i(":: sampleUserResponse[ ${result.data} ]")
-            }
-
-            is NetworkCallResult.Error -> {
-                Timber.i(":: Error[ msg = ${result.message} ].")
-            }
-        }
-    }
-
     suspend fun sampleFetchMovieGenresListFromApi() {
         viewModelScope.launch {
             when (val resultGenres = sampleRepository.getMovieGenresList()) {
@@ -46,14 +24,4 @@ class HomeScreenViewModel(
             }
         }
     }
-
-    init {
-        Timber.i(":: vm-init")
-    }
-
-    override fun onCleared() {
-        Timber.i(":: vm-cleared")
-        super.onCleared()
-    }
-
 }
