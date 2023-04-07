@@ -24,3 +24,25 @@ fun String.isMpesaMessage(): Boolean = try {
     Timber.e(e, e.localizedMessage)
     false
 }
+
+fun String.hasNewMPESABalance(): Boolean {
+    val pattern = Regex("New M-PESA balance is Ksh\\d{1,3}(,\\d{3})*(\\.\\d{2})")
+    return pattern.containsMatchIn(this)
+}
+
+fun String.removeNewMPESABalance(): String {
+    val pattern = Regex("""\sNew M-PESA balance is Ksh\d{1,3}(,\d{3})*(\.\d{1,2})?\.""")
+    return pattern.replace(this, "")
+}
+
+fun String.replaceMPESABalance(): String {
+    /*
+    * To prevent a user's original M-Pesa balance being sent to the backend.
+    * It replaces it with a constant value of 0.00
+    * */
+    val pattern = Regex("(?<=\\s)New\\sM-PESA\\sbalance\\sis\\sKsh[\\d,]+(\\.\\d{1,2})?\\.")
+    val newBalance = "New M-PESA balance is Ksh0.00."
+    return pattern.replace(this, newBalance)
+        .replace(Regex("(?<=Ksh)\\s+"), "") // remove spaces between Ksh and currency value
+}
+

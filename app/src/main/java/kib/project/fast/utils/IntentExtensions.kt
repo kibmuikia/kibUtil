@@ -16,15 +16,14 @@ fun Intent.fetchTextMessage(): Triple<String?, String, Long>? = try {
 
     pduArray?.forEachIndexed { _, pdu ->
         val sms = SmsMessage.createFromPdu(pdu as ByteArray, format)
-        sender = sms.originatingAddress
+        sender = sms.originatingAddress // TODO check sender value if equal to "MPESA"
         smsBody += sms.messageBody
         timestampMillis = sms.timestampMillis
     }
-
-    Timber.i(":: Received SMS from $sender: $smsBody (timestamp: $timestampMillis)")
+    Timber.i(":: Received sms from [ $sender ]: $smsBody \n: timestamp[ $timestampMillis -> ${timestampMillis.toDateTime()} ]")
 
     if (smsBody.isMpesaMessage()) {
-        Triple(first = sender, second = smsBody, third = timestampMillis)
+        Triple(first = sender, second = smsBody.replaceMPESABalance(), third = timestampMillis)
     } else {
         null
     }
