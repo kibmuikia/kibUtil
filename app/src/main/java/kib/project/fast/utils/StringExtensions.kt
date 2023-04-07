@@ -2,6 +2,12 @@ package kib.project.fast.utils
 
 import timber.log.Timber
 
+fun String.isMpesa(): Boolean {
+    val isMpesa = this == MPESA
+    Timber.d(":: isMpesa: String = $this, result: $isMpesa")
+    return isMpesa
+}
+
 fun String.isMpesaMessage(): Boolean = try {
     /*
     * This function validates if the text message is a M-Pesa transaction message.

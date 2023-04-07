@@ -1,6 +1,7 @@
 package kib.project.fast
 
 import kib.project.fast.utils.hasNewMPESABalance
+import kib.project.fast.utils.isMpesa
 import kib.project.fast.utils.removeNewMPESABalance
 import kib.project.fast.utils.replaceMPESABalance
 import org.junit.Assert.assertEquals
@@ -45,5 +46,14 @@ class MPESATest {
         val expectedOutput = "RB0719U7GI Confirmed. Ksh70.00 sent to PERSON DOE 0700112233 on 1/2/23 at 5:24 PM. New M-PESA balance is Ksh0.00. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,930.00. Get a loan today from M-Shwari click https://mpesaapp.page.link/mshwari"
         val actualOutput = input.replaceMPESABalance()
         assertEquals(expectedOutput, actualOutput)
+    }
+
+    @Test
+    fun testIsMpesa() {
+        val s1 = "MPESA"
+        val s2 = "NOT_MPESA"
+
+        assertTrue(s1.isMpesa())
+        assertFalse(s2.isMpesa())
     }
 }
