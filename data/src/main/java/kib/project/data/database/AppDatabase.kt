@@ -6,10 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import kib.project.data.database.dao.AppSmsMessageDao
 import kib.project.data.database.dao.MpesaSmsDao
+import kib.project.data.database.dao.MpesaTransactionDao
 import kib.project.data.database.dao.UserDao
 import kib.project.data.database.entities.User
 import kib.project.data.database.entities.textMessage.AppSmsMessage
 import kib.project.data.database.entities.textMessage.MpesaSms
+import kib.project.data.database.entities.textMessage.MpesaTransaction
 
 // @TypeConverters()
 @Database(
@@ -17,8 +19,9 @@ import kib.project.data.database.entities.textMessage.MpesaSms
         User::class,
         AppSmsMessage::class,
         MpesaSms::class,
+        MpesaTransaction::class,
     ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -27,6 +30,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun appSmsMessageDao(): AppSmsMessageDao
     abstract fun mpesaSmsDao(): MpesaSmsDao
+    abstract fun mpesaTransactionDao(): MpesaTransactionDao
 
     companion object {
         private const val NAME_OF_DATABASE = "sample-app-database"

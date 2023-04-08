@@ -4,7 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kib.project.core.utils.NetworkCallResult
 import kib.project.data.api.models.requests.PostSmsRequest
+import kib.project.data.database.repositories.MpesaSmsRepository
 import kib.project.data.database.repositories.SampleRepository
+import kib.project.data.utils.createFakeMpesaTransaction
+import kib.project.data.utils.toMpesaTransaction
+import kib.project.fast.BuildConfig
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -13,6 +17,7 @@ import timber.log.Timber
 
 class HomeScreenViewModel(
     private val sampleRepository: SampleRepository,
+    private val mpesaSmsRepository: MpesaSmsRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(HomeScreenUiState())
     val uiState = _uiState.asStateFlow()
@@ -44,11 +49,17 @@ class HomeScreenViewModel(
         viewModelScope.launch {
             when (val response = sampleRepository.postSms(postSmsRequest = postSmsRequest)) {
                 is NetworkCallResult.Success -> {
-                    Timber.i(":: Error[ msg = ${response.data} ].")
+                    response.data.let { postSmsResponse ->
+                        Timber.i(":: Success[ data = $postSmsResponse ].")
+                        mpesaSmsRepository.saveMpesaTransaction(mpesaTransaction = postSmsResponse.toMpesaTransaction())
+                    }
                 }
 
                 is NetworkCallResult.Error -> {
                     Timber.i(":: Error[ msg = ${response.message} ].")
+                    if (BuildConfig.DEBUG) {
+                        mpesaSmsRepository.saveMpesaTransaction(mpesaTransaction = createFakeMpesaTransaction())
+                    }
                 }
             }
         }

@@ -29,6 +29,7 @@ chucker-library = "3.5.2"
 play-services-auth = "20.4.0"
 play-services-auth-api-phone = "18.0.1"
 ksp = "1.8.0-1.0.9"
+test-core-ktx = "1.4.0"
 
 [libraries]
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
@@ -77,6 +78,7 @@ chucker-library-release = { module = "com.github.chuckerteam.chucker:library-no-
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "play-services-auth" }
 play-services-auth-api-phone = { module = "com.google.android.gms:play-services-auth-api-phone", version.ref = "play-services-auth-api-phone" }
 ksp-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
+test-core-ktx = { module = "androidx.test:core-ktx", version.ref = "test-core-ktx" }
 
 [bundles]
 bundle-compose-ui = ["compose-ui", "compose-ui-tooling-preview"]

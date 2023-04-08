@@ -23,12 +23,13 @@ private val daoModule: Module = module {
     single { get<AppDatabase>().userDao() }
     single { get<AppDatabase>().appSmsMessageDao() }
     single { get<AppDatabase>().mpesaSmsDao() }
+    single { get<AppDatabase>().mpesaTransactionDao() }
 }
 
 private val repositoryModule: Module = module {
     single<UserRepository> { UserRepositoryImpl(get()) }
     single<SampleRepository> { SampleRepositoryImpl(get()) }
-    single<MpesaSmsRepository> { MpesaSmsRespositoryImpl(get()) }
+    single<MpesaSmsRepository> { MpesaSmsRespositoryImpl(get(), get()) }
 }
 
 private val useCaseModule: Module = module {
