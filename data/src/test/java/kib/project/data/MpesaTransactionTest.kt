@@ -42,7 +42,7 @@ class MpesaTransactionTest {
         // Assert that the message is not null or empty
         assertNotNull(transaction.message)
         assertTrue(transaction.message.isNotBlank())
-        assertTrue(transaction.message.isMpesaMessage())
+        assertTrue(transaction.message.isMpesaMessage().first)
     }
 
     @Test

@@ -47,7 +47,7 @@ class MpesaSmsBroadcastReceiver : BroadcastReceiver() {
                     val messageBody = sms.messageBody
                     Timber.i(":: sms: $sms -- \n$messageBody")
 
-                    if (messageBody.isMpesaMessage()) {
+                    if (messageBody.isMpesaMessage().first) {
                         mpesaSmsReceiveListener?.onMpesaSmsReceived(mpesaSms = messageBody)
                     }
                 }

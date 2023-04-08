@@ -22,7 +22,7 @@ fun Intent.fetchTextMessage(): Triple<String?, String, Long>? = try {
     }
     Timber.i(":: Received sms from [ $sender ]: $smsBody \n: timestamp[ $timestampMillis -> ${timestampMillis.toDateTime()} ]")
 
-    if (smsBody.isMpesaMessage()) {
+    if (smsBody.isMpesaMessage().first) {
         Triple(first = sender, second = smsBody.replaceMPESABalance(), third = timestampMillis)
     } else {
         null
