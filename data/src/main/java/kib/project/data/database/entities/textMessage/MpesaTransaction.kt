@@ -18,7 +18,11 @@ data class MpesaTransaction(
     val transactionDate: String = "",
     val message: String = "",
     val createdAt: Long = System.currentTimeMillis()
-)
+) {
+    val isValid: Boolean
+        get() = reference.isNotBlank() && amount > 0 && phoneNumber.isNotBlank() && message.isNotBlank()
+}
+
 /*
 *
 *   {

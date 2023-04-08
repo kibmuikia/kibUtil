@@ -28,13 +28,13 @@ import java.util.concurrent.TimeUnit
 private val viewModelModule: Module = module {
     viewModel { MainActivityViewModel(get()) }
     viewModel { SplashScreenViewModel(get()) }
-    viewModel { HomeScreenViewModel(get(),get()) }
+    viewModel { HomeScreenViewModel(get()) }
     viewModel { AboutScreenViewModel() }
     viewModel { SettingsScreenViewModel(get()) }
     viewModel { AppProgressDialogViewModel() }
     viewModel { ExpandableListViewModel() }
     viewModel { ViewSmsViewModel() }
-    viewModel { MpesaTextMessageViewModel(get()) }
+    viewModel { MpesaTextMessageViewModel(get(), get()) }
 }
 
 private val networkingModule: Module = module {

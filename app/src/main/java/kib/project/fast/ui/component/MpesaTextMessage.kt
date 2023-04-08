@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -28,6 +29,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
+import kib.project.data.api.models.requests.PostSmsRequest
 import kib.project.data.database.entities.textMessage.MpesaSms
 import kib.project.fast.R
 import kib.project.fast.ui.component.viewmodels.MpesaTextMessageViewModel
@@ -36,14 +38,16 @@ import kib.project.fast.utils.PERMISSION_RECEIVE_SMS
 import kib.project.fast.utils.fetchTextMessage
 import kib.project.fast.utils.showToast
 import kib.project.fast.utils.toDateTime
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun MpesaTextMessage(
-    sms: (String) -> Unit = {},
     context: Context,
+    sms: (String) -> Unit = {},
 ) {
     val viewModel: MpesaTextMessageViewModel = getViewModel()
+    val coroutineScope = rememberCoroutineScope()
     val uiState = viewModel.uiState.collectAsState()
     val permissionState = rememberPermissionState(permission = PERMISSION_RECEIVE_SMS)
     val isPermissionGranted =
@@ -78,7 +82,17 @@ fun MpesaTextMessage(
                 }
             }
         )
-        MessageCard(message = uiState.value.mpesaSmsTriple?.second ?: "")
+        MessageCard(
+            mpesaSmsTriple = uiState.value.mpesaSmsTriple,
+            onClickPostSms = {
+                coroutineScope.launch {
+                    viewModel.postSms(
+                        postSmsRequest = PostSmsRequest(message = it)
+                    )
+                }
+            }
+        )
+
         if (uiState.value.previousMpesaMessages.isNotEmpty()) {
             PreviousMessages(
                 previousMpesaMessages = uiState.value.previousMpesaMessages,
@@ -89,7 +103,10 @@ fun MpesaTextMessage(
 }
 
 @Composable
-private fun MessageCard(message: String) {
+private fun MessageCard(
+    mpesaSmsTriple: Triple<String?, String, Long>?,
+    onClickPostSms: (String) -> Unit = {},
+) {
     Card(
         modifier = Modifier.padding(12.dp),
         shape = RoundedCornerShape(8.dp),
@@ -112,7 +129,8 @@ private fun MessageCard(message: String) {
             )
 
             Text(
-                text = message.ifEmpty { stringResource(id = R.string.no_mpesa_sms_received) },
+                text = mpesaSmsTriple?.second
+                    ?: stringResource(id = R.string.no_mpesa_sms_received),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 12.dp, vertical = 8.dp),
@@ -120,9 +138,13 @@ private fun MessageCard(message: String) {
                 style = MaterialTheme.typography.bodyMedium
             )
 
-            if (message.isNotEmpty()) {
+            if (mpesaSmsTriple?.second.orEmpty().isNotEmpty()) {
                 TextButton(
-                    onClick = { /* Handle button click */ },
+                    onClick = {
+                        mpesaSmsTriple?.second?.let {
+                            onClickPostSms(it)
+                        }
+                    },
                     modifier = Modifier
                         .align(Alignment.End)
                         .padding(12.dp)
@@ -140,7 +162,7 @@ private fun MessageCard(message: String) {
 @Composable
 @Preview
 private fun MessageCardPreview() {
-    MessageCard(message = "")
+    MessageCard(mpesaSmsTriple = null)
 }
 
 @Composable

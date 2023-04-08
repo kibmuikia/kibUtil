@@ -3,32 +3,17 @@ package kib.project.fast.ui.bottom_bar_screens.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kib.project.core.utils.NetworkCallResult
-import kib.project.data.api.models.requests.PostSmsRequest
-import kib.project.data.database.repositories.MpesaSmsRepository
 import kib.project.data.database.repositories.SampleRepository
-import kib.project.data.utils.createFakeMpesaTransaction
-import kib.project.data.utils.toMpesaTransaction
-import kib.project.fast.BuildConfig
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class HomeScreenViewModel(
     private val sampleRepository: SampleRepository,
-    private val mpesaSmsRepository: MpesaSmsRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(HomeScreenUiState())
     val uiState = _uiState.asStateFlow()
-
-    fun setMessage(message: String) {
-        viewModelScope.launch {
-            _uiState.update {
-                it.copy(message = message)
-            }
-        }
-    }
 
     suspend fun sampleFetchMovieGenresListFromApi() {
         viewModelScope.launch {
@@ -44,31 +29,4 @@ class HomeScreenViewModel(
             }
         }
     }
-
-    suspend fun postSms(postSmsRequest: PostSmsRequest) {
-        viewModelScope.launch {
-            when (val response = sampleRepository.postSms(postSmsRequest = postSmsRequest)) {
-                is NetworkCallResult.Success -> {
-                    response.data.let { postSmsResponse ->
-                        Timber.i(":: Success[ data = $postSmsResponse ].")
-                        postSmsResponse.let { response ->
-                            if (response.isValid) {
-                                mpesaSmsRepository.saveMpesaTransaction(mpesaTransaction = postSmsResponse.toMpesaTransaction())
-                            } else {
-                                Timber.e(":: postSmsResponse is INVALID: \n$response")
-                            }
-                        }
-                    }
-                }
-
-                is NetworkCallResult.Error -> {
-                    Timber.i(":: Error[ msg = ${response.message} ].")
-                    if (BuildConfig.DEBUG) {
-                        mpesaSmsRepository.saveMpesaTransaction(mpesaTransaction = createFakeMpesaTransaction())
-                    }
-                }
-            }
-        }
-    }
-
 }
