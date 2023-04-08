@@ -51,7 +51,13 @@ class HomeScreenViewModel(
                 is NetworkCallResult.Success -> {
                     response.data.let { postSmsResponse ->
                         Timber.i(":: Success[ data = $postSmsResponse ].")
-                        mpesaSmsRepository.saveMpesaTransaction(mpesaTransaction = postSmsResponse.toMpesaTransaction())
+                        postSmsResponse.let { response ->
+                            if (response.isValid) {
+                                mpesaSmsRepository.saveMpesaTransaction(mpesaTransaction = postSmsResponse.toMpesaTransaction())
+                            } else {
+                                Timber.e(":: postSmsResponse is INVALID: \n$response")
+                            }
+                        }
                     }
                 }
 

@@ -12,7 +12,18 @@ data class PostSmsResponse(
     @SerializedName("balance") val balance: Double?,
     @SerializedName("transactionDate") val transactionDate: String?,
     @SerializedName("message") val message: String?,
-)
+) {
+    // Check if the PostSmsResponse object is valid
+    val isValid: Boolean
+        get() {
+            // Check that the required fields are not null and not blank
+            return !((reference.isNullOrEmpty() ||
+                    (amount ?: -1.0) < 0 || // provide a default value of -1.0 if amount is null
+                    phoneNumber.isNullOrEmpty() ||
+                    message.isNullOrEmpty() ||
+                    (balance ?: -1.0) < 0)) // provide a default value of -1.0 if balance is null
+        }
+}
 /*
 {
     "amount": 70,
