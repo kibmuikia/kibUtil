@@ -115,6 +115,10 @@ dependencies {
     // gson
     implementation(libs.gson)
 
+    // play services auth
+    implementation(libs.play.services.auth)
+    implementation(libs.play.services.auth.api.phone)
+
     // test
     androidTestImplementation(libs.junit.test.ext)
     implementation(libs.junit.test.ext.ktx)

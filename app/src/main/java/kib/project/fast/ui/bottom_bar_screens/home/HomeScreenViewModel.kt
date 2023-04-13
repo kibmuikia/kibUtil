@@ -4,12 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kib.project.core.utils.NetworkCallResult
 import kib.project.data.database.repositories.SampleRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class HomeScreenViewModel(
     private val sampleRepository: SampleRepository,
 ) : ViewModel() {
+    private val _uiState = MutableStateFlow(HomeScreenUiState())
+    val uiState = _uiState.asStateFlow()
+
     suspend fun sampleFetchMovieGenresListFromApi() {
         viewModelScope.launch {
             when (val resultGenres = sampleRepository.getMovieGenresList()) {

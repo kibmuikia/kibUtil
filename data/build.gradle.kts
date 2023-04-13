@@ -65,8 +65,10 @@ dependencies {
     implementation(libs.gson)
 
     // test
+    implementation(libs.test.core.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit.test.ext)
+    implementation(libs.junit.test.ext.ktx)
     androidTestImplementation(libs.espresso.core)
     testImplementation(libs.room.testing)
     implementation(libs.coroutines.test)
